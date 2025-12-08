@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PureHealth - Bringing health to you</title>
-    <link rel="stylesheet" href="/styling/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <nav>
@@ -43,7 +43,8 @@
                 <div class="sparkle"></div>
                 <div class="sparkle"></div>
                 <div class="sparkle"></div>
-                <img src="/images/purehealth.png" alt="Healthcare Illustration">
+<img src="{{ url_for('static', filename='images/purehealth.png') }}" alt="Healthcare Illustration">
+
             </div>
         </div>
     </div>
