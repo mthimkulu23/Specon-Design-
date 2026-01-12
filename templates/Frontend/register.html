@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styling/register.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+
     <title>Register</title>
    
 </head>
@@ -50,8 +52,10 @@
                         <input type="password" id="confirmPassword" name="confirmPassword" required>
                     </div>
 
-                    <button type="submit" class="submit-button">Submit</button>
+                    <button type="submit" class="submit-button">Create Account</button>
                 </form>
+
+                <div id="message" class="message"></div>
             </div>
 
             <div class="image-section">
@@ -60,21 +64,7 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            alert('Registration successful!');
-            // Add your form submission logic here
-        });
-    </script>
+    <script src="/scripts/register.js"></script>
+
 </body>
 </html>
