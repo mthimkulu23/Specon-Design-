@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='doctor_dashboard.css') }}">
+    <title>Doctor Dashboard - PureHealth</title>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h2>PureHealth Centre</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">
+                    <span class="icon icon-dashboard"></span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-inbox"></span>
+                    <span>Inbox</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-appointment"></span>
+                    <span>Appointment</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-prescriptions"></span>
+                    <span>Prescriptions</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-lab"></span>
+                    <span>Lab Results</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-promotions"></span>
+                    <span>Promotions</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-bookings"></span>
+                    <span>Bookings</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-feedback"></span>
+                    <span>Feedback</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item">
+                    <span class="icon icon-settings"></span>
+                    <span>Settings</span>
+                </a>
+                <a href="{{ url_for('main.home') }}" class="nav-item">
+                    <span class="icon icon-logout"></span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Cards -->
+            <div class="top-cards">
+                <!-- Appointments Today -->
+                <div class="card">
+                    <h3>Appointment's Today</h3>
+                    <div class="card-content">
+                        <div class="appointment-count">{{ stats.today_appointments }}</div>
+                        <ul class="appointment-list">
+                            {% for appointment in appointments %}
+                            <li>
+                                <span class="time">{{ appointment.time }}</span>
+                                <span class="status {{ appointment.class }}">{{ appointment.status }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Patient Count -->
+                <div class="card">
+                    <h3>Patient Count</h3>
+                    <div class="card-content centered">
+                        <div class="patient-count">{{ stats.patient_count }}</div>
+                        <div class="chart">
+                            <div class="bar" style="height: 60%"></div>
+                            <div class="bar" style="height: 100%"></div>
+                            <div class="bar" style="height: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lab Results Pending -->
+                <div class="card">
+                    <h3>Lab Results Pending</h3>
+                    <div class="card-content centered">
+                        <div class="lab-count">{{ stats.lab_results_pending }}</div>
+                        <div class="lab-icon">
+                            <div class="test-tubes">
+                                <div class="tube tube-1"></div>
+                                <div class="tube tube-2"></div>
+                                <div class="tube tube-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="bottom-section">
+                <!-- Calendar -->
+                <div class="calendar-card card">
+                    <div class="calendar-header">
+                        <div class="view-toggle">
+                            <button class="toggle-btn active">Week</button>
+                            <button class="toggle-btn">V/Week</button>
+                        </div>
+                        <div class="nav-arrows">
+                            <button class="arrow-btn">◀</button>
+                            <button class="arrow-btn">▶</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-grid">
+                        <div class="calendar-header">
+                            <h3>{{ calendar.month }} {{ calendar.year }}</h3>
+                            <div class="calendar-nav">
+                                <button class="arrow-btn">◀</button>
+                                <button class="arrow-btn">▶</button>
+                            </div>
+                        </div>
+                        <div class="calendar-days">
+                            <div class="day-header">Mon</div>
+                            <div class="day-header">Tue</div>
+                            <div class="day-header">Wed</div>
+                            <div class="day-header">Thur</div>
+                            <div class="day-header">Fri</div>
+                            <div class="day-header">Sat</div>
+                            <div class="day-header">Sun</div>
+                        </div>
+
+                        <div class="calendar-dates">
+                            {% for day in calendar.days %}
+                            <div class="date {% if day == calendar.today %}today{% endif %}">{{ day }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-card card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        {% for activity in activities %}
+                        <div class="activity-item">
+                            <div class="activity-icon"></div>
+                            <div class="activity-content">
+                                <div class="activity-title">{{ activity.title }}</div>
+                                {% if activity.subtitle %}
+                                <div class="activity-subtitle">{{ activity.subtitle }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="activity-time">{{ activity.time }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

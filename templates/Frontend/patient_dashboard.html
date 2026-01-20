@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - PureHealth</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='patient_dashboard.css') }}">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <span>PureHealth Centre</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="active">
+                    <div class="icon dashboard-icon"></div>
+                    Dashboard
+                </a>
+                <a href="#">
+                    <div class="icon inbox-icon"></div>
+                    Inbox
+                </a>
+                <a href="#">
+                    <div class="icon appointment-icon"></div>
+                    Appointment
+                </a>
+                <a href="#">
+                    <div class="icon promotion-icon"></div>
+                    Promotions
+                </a>
+                <a href="#">
+                    <div class="icon settings-icon"></div>
+                    Clinic Settings
+                </a>
+                <a href="#">
+                    <div class="icon reviews-icon"></div>
+                    Reviews
+                </a>
+                <a href="#">
+                    <div class="icon bookings-icon"></div>
+                    Bookings
+                </a>
+                <a href="#">
+                    <div class="icon feedback-icon"></div>
+                    Feedback
+                </a>
+            </nav>
+
+            <a href="{{ url_for('main.logout') }}" class="logout-link">
+                <div class="icon logout-icon"></div>
+                Logout
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1>Welcome {{ patient_name }} ,<br>here is your Dashboard</h1>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Upcoming Appointments -->
+                <div class="section-title">Upcoming Appointment</div>
+                <div class="section-title">Medical Records</div>
+
+                <div class="appointments-list">
+                    {% for apt in upcoming_appointments %}
+                    <div class="appointment-card">
+                        <div class="date-box">
+                            <span class="day">{{ apt.day }}</span>
+                            <span class="month">{{ apt.month }}</span>
+                        </div>
+                        <div class="doctor-info">
+                            <div class="doctor-name">{{ apt.doctor }}</div>
+                            <div class="time">{{ apt.time }}</div>
+                        </div>
+                        <div class="arrow-icon">›</div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Medical Records Button -->
+                <div class="records-card">
+                    <div class="records-icon">+</div>
+                    <span>View Records</span>
+                </div>
+
+                <!-- Recent Messages & Health Summary Row -->
+                <div class="section-title"></div> <!-- Spacer/Grid alignment -->
+                <div class="section-title">Health Summary</div>
+
+                <!-- Appointment (Lower) -->
+                <!-- Note: Design shows two columns. Appointments col 1, Records col 2. -->
+                <!-- Below Appointments is another similar card style? Or maybe simple flow. -->
+
+                <!-- Let's restructure grid to match design visually -->
+            </div>
+
+            <!-- Redoing Grid Structure to match design logic better -->
+            <div class="content-grid">
+                <!-- Left Column -->
+                <div class="left-col">
+                    <h2 class="section-header">Upcoming Appointment</h2>
+                    <div class="appointments-container">
+                        {% for apt in upcoming_appointments %}
+                        <div class="info-card">
+                            <div class="date-group">
+                                <span class="d-day">{{ apt.day }}</span>
+                                <span class="d-month">{{ apt.month }}</span>
+                            </div>
+                            <div class="info-group">
+                                <div class="info-title">{{ apt.doctor }}</div>
+                                <div class="info-subtitle">{{ apt.time }}</div>
+                            </div>
+                            <div class="nav-arrow">›</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <h2 class="section-header">Recent messages</h2>
+                    <div class="message-card info-card">
+                        {% if recent_messages %}
+                        <img src="{{ recent_messages[0].image }}" alt="User" class="avatar">
+                        <div class="info-group">
+                            <div class="info-title">{{ recent_messages[0].sender }}</div>
+                            <div class="info-subtitle">{{ recent_messages[0].content }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-col">
+                    <h2 class="section-header">Medical Records</h2>
+                    <div class="record-button-card">
+                        <div class="plus-icon-circle">+</div>
+                        <span>View Records</span>
+                    </div>
+
+                    <h2 class="section-header">Health Summary</h2>
+                    <div class="health-summary-card">
+                        <div class="heart-icon">♥</div>
+                        <span>Your BMI: {{ health_summary.bmi }}</span>
+                    </div>
+
+                    <div class="heart-rate-viz">
+                        <!-- Placeholder for the heart graph image -->
+                        <div class="heart-shape">
+                            <svg viewBox="0 0 100 100" class="heart-svg">
+                                <path d="M50 85 L15 50 Q0 35 15 20 T50 20 T85 20 Q100 35 85 50 Z" fill="#D32F2F" />
+                                <path d="M20 50 L30 50 L35 40 L45 60 L55 30 L65 50 L80 50" stroke="white"
+                                    stroke-width="3" fill="none" class="ecg-line" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</body>
+
+</html>
