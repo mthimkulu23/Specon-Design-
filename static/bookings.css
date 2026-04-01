@@ -1,0 +1,304 @@
+/* Consistency with doctor_dashboard.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 180px;
+    background: linear-gradient(180deg, #6b9b8e 0%, #5a8a7d 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
+
+.logo-icon {
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.logo h2 {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.nav-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background 0.3s;
+    gap: 10px;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+    background: rgba(255, 255, 255, 0.2);
+    border-left: 4px solid white;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-dashboard::before {
+    content: '🏠';
+}
+
+.icon-inbox::before {
+    content: '📥';
+}
+
+.icon-appointment::before {
+    content: '🗓️';
+}
+
+.icon-prescriptions::before {
+    content: '📋';
+}
+
+.icon-lab::before {
+    content: '🧪';
+}
+
+.icon-promotions::before {
+    content: '🎁';
+}
+
+.icon-bookings::before {
+    content: '📅';
+}
+
+.icon-feedback::before {
+    content: '💬';
+}
+
+.icon-settings::before {
+    content: '⚙️';
+}
+
+.icon-logout::before {
+    content: '🚪';
+}
+
+.icon-reviews::before {
+    content: '⭐';
+}
+
+.sidebar-footer {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+.page-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.booking-form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.form-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #7f8c8d;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+    padding: 12px 16px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+    background-color: #fafbfc;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #6b9b8e;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(107, 155, 142, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+/* Radio and Checkbox Styling */
+.radio-group,
+.checkbox-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.radio-item,
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #6b9b8e;
+    cursor: pointer;
+}
+
+/* Specific Section Styles */
+.medical-history-section textarea {
+    margin-bottom: 15px;
+}
+
+.payment-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+
+    .payment-section {
+        grid-template-columns: 1fr;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .booking-form-container {
+        padding: 20px;
+    }
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .logo h2,
+    .nav-item span:not(.icon) {
+        display: none;
+    }
+}
