@@ -1,0 +1,152 @@
+/* Promotions Page Custom Styles */
+.promotions-content {
+    flex: 1;
+    padding: 20px 40px;
+    background-color: #ececec;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+/* Override sidebar active item for Promotions to match image */
+.nav-item.promotions-active {
+    background: #e6e6e6 !important; /* light gray/white */
+    color: #000 !important;
+    border-radius: 8px;
+    margin: 5px 10px;
+    padding: 10px 15px;
+    border-left: none !important;
+    font-weight: bold;
+}
+
+/* Banner */
+.promo-banner {
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.promo-brand-bar {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 24px;
+    color: #6fb0a1;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.promo-accent {
+    height: 15px;
+    background-color: #6fb0a1;
+    width: 100%;
+}
+
+.promo-image-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: url('https://images.unsplash.com/photo-1551076805-e18690c5e458?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+    display: flex;
+}
+
+.promo-image-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 80%);
+}
+
+.promo-image-content {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    color: #fff;
+    max-width: 600px;
+    z-index: 2;
+}
+
+.promo-image-content h2 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    line-height: 1.2;
+}
+
+.promo-image-content h3 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.promo-image-content p {
+    font-size: 15px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.promo-btn {
+    background-color: #6fb0a1;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.promo-btn:hover {
+    background-color: #5c9386;
+}
+
+/* Bottom Cards */
+.promo-cards-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.promo-card {
+    background-color: #e2e2e2;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.promo-card h4 {
+    font-size: 15px;
+    font-weight: 500;
+    color: #111;
+    margin-bottom: 20px;
+}
+
+.promo-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 45px;
+    flex: 1;
+}
+
+.promo-icons span {
+    display: inline-block;
+}

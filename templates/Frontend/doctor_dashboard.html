@@ -38,7 +38,7 @@
                     <span class="icon icon-lab"></span>
                     <span>Lab Results</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="{{ url_for('main.promotions') }}" class="nav-item">
                     <span class="icon icon-promotions"></span>
                     <span>Promotions</span>
                 </a>
@@ -148,7 +148,11 @@
 
                         <div class="calendar-dates">
                             {% for day in calendar.days %}
-                            <div class="date {% if day == calendar.today %}today{% endif %}">{{ day }}</div>
+                                {% if day != 0 %}
+                                    <div class="date {% if day == calendar.today %}today{% endif %}">{{ day }}</div>
+                                {% else %}
+                                    <div class="empty-date" style="aspect-ratio: 1;"></div>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>

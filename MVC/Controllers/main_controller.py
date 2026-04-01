@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from datetime import datetime
 import calendar
+from MVC.Models.models import Patient, Appointment, Activity
 
 main_blueprint = Blueprint('main', __name__)
 
@@ -48,6 +49,10 @@ def register():
 def forgot_password():
     return render_template('Frontend/forgetPassword.html')
 
+@main_blueprint.route('/promotions')
+def promotions():
+    return render_template('Frontend/promotions.html')
+
 @main_blueprint.route('/doctor-dashboard')
 def doctor_dashboard():
     # Check if user is logged in and is a doctor
@@ -56,27 +61,24 @@ def doctor_dashboard():
         
     # Calendar Data (Dynamic)
     now = datetime.now()
-    _, num_days = calendar.monthrange(now.year, now.month)
+    cal = calendar.Calendar(firstweekday=0)
+    month_days = list(cal.itermonthdays(now.year, now.month))
     
-    # Mock Data (In production, fetch from database)
+    appointments = Appointment.get_today_appointments()
+    activities = Activity.get_recent_activities()
+    patient_count = Patient.get_count()
+
+    # Data fetched from simulated database models
     dashboard_data = {
         'stats': {
-            'today_appointments': 12,
-            'patient_count': 87,
+            'today_appointments': len(appointments),
+            'patient_count': patient_count,
             'lab_results_pending': 5
         },
-        'appointments': [
-            {'time': '10:00 AM', 'status': 'Confirmed', 'class': 'confirmed'},
-            {'time': '11:30 AM', 'status': 'Pending', 'class': 'pending'},
-            {'time': '14:30 AM', 'status': 'Confirmed', 'class': 'confirmed'}
-        ],
-        'activities': [
-            {'title': 'Patient John Smith', 'subtitle': 'has upcoming appointment', 'time': '1h'},
-            {'title': 'New Lab results are Available', 'subtitle': '', 'time': '2h'},
-            {'title': 'Prescription for Jane Doe', 'subtitle': 'Needs renewal', 'time': '4h'}
-        ],
+        'appointments': appointments,
+        'activities': activities,
         'calendar': {
-            'days': list(range(1, num_days + 1)),
+            'days': month_days,
             'today': now.day,
             'month': now.strftime("%B"),
             'year': now.year
@@ -92,12 +94,28 @@ def patient_dashboard():
         return redirect(url_for('main.login'))
         
     # Mock Data for Patient Dashboard
-    patient_data = {
-        'patient_name': session.get('username', 'Sasekani'),
-        'upcoming_appointments': [
+    username = session.get('username', 'Sasekani')
+    appointments = Appointment.get_appointments_by_patient(username)
+    
+    upcoming_appointments = []
+    for app in appointments:
+        date_parts = app['date'].split(' ')
+        day = date_parts[0] if len(date_parts) > 0 else '15'
+        month = date_parts[1] if len(date_parts) > 1 else 'July'
+        upcoming_appointments.append({
+            'day': day, 'month': month, 'doctor': app['doctor'], 'time': app['time']
+        })
+        
+    if not upcoming_appointments:
+        upcoming_appointments = [
             {'day': '30', 'month': 'June', 'doctor': 'Dr. Smith', 'time': '10:00 PM'},
             {'day': '2', 'month': 'July', 'doctor': 'Marry Jonson', 'time': '1:30 PM'}
-        ],
+        ]
+
+    # Data fetched from simulated database models
+    patient_data = {
+        'patient_name': username,
+        'upcoming_appointments': upcoming_appointments,
         'health_summary': {
             'bmi': '22.5'
         },
