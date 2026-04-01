@@ -108,6 +108,14 @@ def patient_dashboard():
     
     return render_template('Frontend/patient_dashboard.html', **patient_data)
 
+@main_blueprint.route('/bookings')
+def bookings():
+    # Mock data for the bookings page
+    bookings_data = {
+        'page_title': 'Doctors Bookings From Patients'
+    }
+    return render_template('Frontend/bookings.html', **bookings_data)
+
 @main_blueprint.route('/logout')
 def logout():
     session.clear()
