@@ -1,0 +1,23 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f9; color: #203646; }
+.dashboard-container { display: flex; min-height: 100vh; }
+.sidebar { width: 190px; background: linear-gradient(180deg, #6b9b8e 0%, #5a8a7d 100%); color: #fff; padding: 24px 10px; display: flex; flex-direction: column; }
+.logo { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; }
+.logo-icon { width: 36px; height: 36px; background: #fff; border-radius: 50%; }
+.logo h2 { font-size: 14px; font-weight: 700; }
+.nav-menu { display: flex; flex-direction: column; gap: 8px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #fff; text-decoration: none; border-radius: 8px; font-size: 13px; transition: background 0.2s; }
+.nav-item:hover { background: rgba(255,255,255,0.12); }
+.nav-item.active { background: rgba(255,255,255,0.22); border-left: 4px solid #fff; }
+.sidebar-footer { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.25); padding-top: 16px; }
+.main-content { flex: 1; padding: 36px; background: #fff; }
+.page-header h1 { font-size: 28px; color: #1f3e5b; margin-bottom: 6px; }
+.page-header p { color: #5e7389; font-size: 14px; }
+.settings-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.settings-card { display: flex; align-items: center; gap: 14px; padding: 16px; background: #eef4f8; border: 1px solid #d8e4ed; border-radius: 12px; text-decoration: none; color: #1f3e5b; transition: all 0.2s ease; }
+.settings-card:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(31,62,91,0.14); }
+.card-icon { width: 42px; height: 42px; border-radius: 11px; background: #d8f0f1; display: grid; place-items: center; font-size: 20px; }
+.settings-card h2 { font-size: 16px; margin-bottom: 4px; }
+.settings-card p { font-size: 13px; color: #4b657a; }
+.chevron { margin-left: auto; font-size: 24px; }
+@media (max-width: 900px) { .dashboard-container { flex-direction: column; } .sidebar { width: 100%; flex-direction: row; overflow-x: auto; } .nav-menu { flex-direction: row; gap: 6px; } .settings-grid { grid-template-columns: 1fr; } }
