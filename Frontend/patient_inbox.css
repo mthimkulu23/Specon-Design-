@@ -1,0 +1,348 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f9;
+    color: #2c3e50;
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 190px;
+    background: linear-gradient(180deg, #6b9b8e 0%, #5a8a7d 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    margin-bottom: 28px;
+}
+
+.logo-icon {
+    width: 34px;
+    height: 34px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.logo h2 {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    color: #fff;
+    font-size: 13px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.25s ease;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.nav-item.active {
+    background: rgba(255, 255, 255, 0.22);
+    border-left: 3px solid #fff;
+}
+
+.icon::before {
+    font-size: 16px;
+}
+
+.icon-dashboard::before { content: '🏠'; }
+.icon-bookings::before { content: '📅'; }
+.icon-appointment::before { content: '🗓️'; }
+.icon-inbox::before { content: '📥'; }
+.icon-reviews::before { content: '⭐'; }
+.icon-feedback::before { content: '💬'; }
+.icon-prescriptions::before { content: '📋'; }
+.icon-settings::before { content: '⚙️'; }
+.icon-logout::before { content: '🚪'; }
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 18px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.main-content {
+    flex: 1;
+    background-color: #fff;
+    padding: 32px;
+    min-height: 100vh;
+}
+
+.page-header h1 {
+    margin-bottom: 8px;
+    font-size: 24px;
+    color: #2a3d5e;
+}
+
+.page-header p {
+    color: #7a8aa6;
+    font-size: 14px;
+}
+
+.inbox-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.btn.danger {
+    background: #e74c3c;
+    color: #fff;
+    border-color: #e74c3c;
+}
+
+.btn.danger:hover {
+    background: #c0392b;
+}
+
+.inbox-search {
+    margin-bottom: 20px;
+}
+
+.inbox-search input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fafbfc;
+}
+
+.inbox-search input:focus {
+    outline: none;
+    border-color: #6b9b8e;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(107, 155, 142, 0.1);
+}
+
+.inbox-filters label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.inbox-filters select {
+    padding: 8px 12px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fafbfc;
+}
+
+.inbox-filters select:focus {
+    outline: none;
+    border-color: #6b9b8e;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(107, 155, 142, 0.1);
+}
+
+.btn {
+    padding: 10px 14px;
+    border: 1px solid #c5d4df;
+    border-radius: 8px;
+    background: #f8fbfd;
+    color: #2d3e50;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn.primary {
+    background: #6b9b8e;
+    color: #fff;
+    border-color: #6b9b8e;
+}
+
+.btn:hover {
+    background: #eaf2f8;
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.message-item {
+    background: #fff;
+    border: 1px solid #e4e9ee;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 6px rgba(19, 41, 59, 0.04);
+}
+
+.message-item.unread {
+    border-color: #82b1ac;
+    background: #f8fffc;
+}
+
+.message-item.read {
+    border-color: #d5dce3;
+    background: #fbfcfe;
+    opacity: 0.80;
+}
+
+.message-item.unread h3 {
+    font-weight: 700;
+}
+
+.message-item.read h3 {
+    font-weight: 500;
+}
+
+.message-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.message-action-btn {
+    background: #e8f1f7;
+    border: 1px solid #c1d6e4;
+    padding: 5px 9px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.message-action-btn:hover {
+    background: #d6e7f1;
+}
+
+.message-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #5b6a80;
+}
+
+.message-item h3 {
+    font-size: 17px;
+    margin-bottom: 6px;
+    color: #2b405c;
+}
+
+.message-item p {
+    color: #55677f;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-content label {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.modal-content input,
+.modal-content textarea {
+    padding: 10px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.modal-content textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+    .sidebar {
+        width: 75px;
+    }
+    .logo h2,
+    .nav-item span:not(.icon) {
+        display: none;
+    }
+    .main-content {
+        padding: 20px;
+    }
+    .inbox-actions,
+    .inbox-filters,
+    .inbox-search {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+}
