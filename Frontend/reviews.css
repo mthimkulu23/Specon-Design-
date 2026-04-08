@@ -316,6 +316,10 @@ body {
     cursor: pointer;
 }
 
+.stars-input .star.selected {
+    color: #000;
+}
+
 .submit-btn {
     background: rgba(0, 0, 0, 0.1);
     color: #666;
