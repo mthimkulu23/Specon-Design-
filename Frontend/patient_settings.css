@@ -113,14 +113,21 @@ body {
 .main-content {
     flex: 1;
     margin-left: 260px;
-    padding: 80px 0;
-    /* Vertical padding only */
+    padding: 80px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     min-height: 100vh;
-    width: calc(100% - 260px);
+    background-color: var(--bg-main);
+}
+
+#settingsMain {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .page-header {
@@ -138,7 +145,6 @@ body {
 /* Settings List */
 .settings-list {
     width: 100%;
-    max-width: 850px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -431,39 +437,16 @@ input:checked+.slider:before {
 /* Prescription Pad Styling */
 .prescription-pad {
     background-color: #8fa7a5;
-    /* Teal background as seen in reference */
     padding: 50px;
     border-radius: 12px;
     color: #1a3a38;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
+    width: 100%;
 }
 
 .pad-header {
     display: flex;
-    justify-content: center;
-
-    .clinic-info {
-        text-align: right;
-    }
-
-    .clinic-info h2 {
-        font-size: 28px;
-        margin-bottom: 10px;
-        color: #1a3a38;
-    }
-
-    .clinic-info p {
-        font-size: 16px;
-        margin: 2px 0;
-        opacity: 0.9;
-    }
-
-    .pad-body {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-    }
 
     .pad-field {
         display: flex;
