@@ -9,7 +9,7 @@
 :root {
     --primary: #6a9c89;
     --primary-dark: #4a7d6a;
-    --bg-main: #b8c6c5;
+    --bg-main: hsl(210, 20%, 98%);
     /* Grey/blue background matching the image outer area */
     --bg-card: #ffffff;
     --text-main: #1a1a1a;
