@@ -51,7 +51,16 @@ def forgot_password():
 
 @main_blueprint.route('/promotions')
 def promotions():
-    return render_template('Frontend/promotions.html')
+    clinic_bg_image = url_for('static', filename='images/clinic_interior.png')
+    return render_template('Frontend/promotions.html', clinic_bg_image=clinic_bg_image)
+
+@main_blueprint.route('/doctor-bookings')
+def doctor_bookings():
+    return render_template('Frontend/doctor_bookings.html')
+
+@main_blueprint.route('/doctor-inbox')
+def doctor_inbox():
+    return render_template('Frontend/doctor_inbox.html')
 
 @main_blueprint.route('/doctor-dashboard')
 def doctor_dashboard():

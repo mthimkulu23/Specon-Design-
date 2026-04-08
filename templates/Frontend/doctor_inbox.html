@@ -68,33 +68,44 @@
             padding: 8px 0;
         }
 
+        .nav-icon {
+            font-size: 17px;
+            width: 22px;
+            text-align: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 12px;
+        }
+
         .sidebar-nav li {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 11px 16px;
-            color: #d8eeee;
-            font-size: 13px;
-            font-weight: 700;
+            padding: 0;
             cursor: pointer;
             border-radius: 10px;
             margin: 2px 8px;
             transition: background .18s;
         }
 
-        .sidebar-nav li:hover {
-            background: rgba(255, 255, 255, .13);
+        .sidebar-nav li a.nav-link {
+            padding: 11px 16px;
+            color: #d8eeee;
+            font-size: 13px;
+            font-weight: 700;
         }
 
         .sidebar-nav li.active {
             background: #fff;
-            color: #3a7a78;
         }
 
-        .nav-icon {
-            font-size: 17px;
-            width: 22px;
-            text-align: center;
+        .sidebar-nav li.active a.nav-link {
+            color: #3a7a78;
         }
 
         .sidebar-bottom {
@@ -198,19 +209,19 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="active"><span class="nav-icon">📬</span> Inbox</li>
-                <li onclick="location.href='dashboard.html'"><span class="nav-icon">🏠</span> Dashboard</li>
+                <li><a href="{{ url_for('main.doctor_dashboard') }}" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a></li>
                 <li><span class="nav-icon">📅</span> Appointment</li>
                 <li><span class="nav-icon">💊</span> Prescriptions</li>
                 <li><span class="nav-icon">🧪</span> Lab Results</li>
                 <li><span class="nav-icon">🪪</span> Feedback</li>
-                <li><span class="nav-icon">🎁</span> Promotions</li>
+                <li><a href="{{ url_for('main.promotions') }}" class="nav-link"><span class="nav-icon">🎁</span> Promotions</a></li>
                 <li><span class="nav-icon">📊</span> Reviews</li>
-                <li onclick="location.href='bookings.html'"><span class="nav-icon">💬</span> Bookings</li>
+                <li><a href="{{ url_for('main.doctor_bookings') }}" class="nav-link"><span class="nav-icon">💬</span> Bookings</a></li>
             </ul>
             <div class="sidebar-bottom">
                 <ul class="sidebar-nav">
                     <li><span class="nav-icon">⚙️</span> Settings</li>
-                    <li style="color:#c8e8e8;"><span class="nav-icon">🚪</span> Logout</li>
+                    <li><a href="{{ url_for('main.logout') }}" class="nav-link"><span class="nav-icon">🚪</span> Logout</a></li>
                 </ul>
             </div>
         </aside>
