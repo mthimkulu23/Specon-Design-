@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='doctor_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='promotions.css') }}">
+    <title>Promotions - PureHealth</title>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h2>PureHealth Centre</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="{{ url_for('main.doctor_dashboard') }}" class="nav-item">
+                    <span class="icon icon-dashboard"></span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-inbox"></span>
+                    <span>Inbox</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-appointment"></span>
+                    <span>Appointment</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-prescriptions"></span>
+                    <span>Prescriptions</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-lab"></span>
+                    <span>Lab Results</span>
+                </a>
+                <a href="{{ url_for('main.promotions') }}" class="nav-item promotions-active">
+                    <span class="icon icon-promotions"></span>
+                    <span style="color: black !important">Promotions</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-bookings"></span>
+                    <span>Bookings</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon icon-feedback"></span>
+                    <span>Feedback</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item">
+                    <span class="icon icon-settings"></span>
+                    <span>Clinic Settings</span>
+                </a>
+                <a href="{{ url_for('main.home') }}" class="nav-item">
+                    <span class="icon icon-logout"></span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="promotions-content">
+            <h1 class="page-title">Promotions</h1>
+
+            <div class="promo-banner">
+                <div class="promo-brand-bar">
+                    PureHealth Centre
+                </div>
+                <div class="promo-accent"></div>
+
+                <div class="promo-image-container" style="background-image: url('{{ clinic_bg_image }}');">
+                    <div class="promo-image-overlay"></div>
+                    <div class="promo-image-content">
+                        <h2>Your Health,</h2>
+                        <h3>Our Priority</h3>
+                        <p>Compassionate Care. Advanced Medicine. Trusted Community.</p>
+                        <a href="#" class="promo-btn">Book an Appointment</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="promo-cards-wrapper">
+                <div class="promo-card">
+                    <h4>Free Blood Pressure check -up</h4>
+                    <div class="promo-icons">
+                        <span>🖐️</span><span>📟</span>
+                    </div>
+                </div>
+                <div class="promo-card">
+                    <h4>Get all essential vaccine with Discount</h4>
+                    <div class="promo-icons">
+                        <span>💉</span><span>📋</span>
+                    </div>
+                </div>
+                <div class="promo-card">
+                    <h4>pap smear + Breast Exam+Vital checks</h4>
+                    <div class="promo-icons">
+                        <span>💧</span><span>📄</span><span>🫘</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
