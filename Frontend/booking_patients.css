@@ -277,6 +277,14 @@ textarea {
     background-color: var(--white);
 }
 
+select:required:invalid {
+    color: var(--text-muted);
+}
+
+select option {
+    color: var(--text-main);
+}
+
 input:focus,
 select:focus,
 textarea:focus {
