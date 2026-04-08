@@ -146,11 +146,14 @@
       const STORAGE_KEY = 'patientInboxMessages';
       const ARCHIVE_KEY = 'patientInboxArchived';
       const msgList = document.querySelector('.message-list');
+      let allMessages = [];
+      let archivedMessages = [];
       let isViewingArchive = false;
 
-      const buildMessageElement = ({ sender, date, subject, body, status }) => {
+      const buildMessageElement = ({ id, sender, date, subject, body, status }) => {
         const article = document.createElement('article');
         article.className = `message-item ${status === 'unread' ? 'unread' : 'read'}`;
+        article.dataset.id = id;
         article.innerHTML = `
             <div class="message-meta">
               <span class="sender">${sender}</span>
@@ -168,129 +171,99 @@
         return article;
       };
 
-      const getCurrentMessages = () => {
-        return Array.from(msgList.querySelectorAll('.message-item')).map(item => ({
-          sender: item.querySelector('.sender').textContent,
-          date: item.querySelector('.date').textContent,
-          subject: item.querySelector('h3').textContent,
-          body: item.querySelector('p').textContent,
-          status: item.classList.contains('unread') ? 'unread' : 'read'
-        }));
-      };
-
-      const saveMessages = () => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(getCurrentMessages()));
-      };
-
-      const renderMessages = messages => {
+      const renderMessages = (messages, isApplyingFilter = false) => {
         msgList.innerHTML = '';
         messages.forEach(message => msgList.appendChild(buildMessageElement(message)));
-        if (!isViewingArchive) {
-          saveMessages();
+        if (!isViewingArchive && !isApplyingFilter) {
+          saveToStorage();
         }
         updateSenderFilter();
       };
 
-      const loadMessages = () => {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return null;
-        try {
-          return JSON.parse(raw);
-        } catch (e) {
-          return null;
-        }
+      const saveToStorage = () => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(allMessages));
+        localStorage.setItem(ARCHIVE_KEY, JSON.stringify(archivedMessages));
       };
 
-      const loadArchived = () => {
-        const raw = localStorage.getItem(ARCHIVE_KEY);
-        if (!raw) return [];
-        try {
-          return JSON.parse(raw);
-        } catch (e) {
-          return [];
-        }
-      };
+      const loadFromStorage = () => {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        const archived = localStorage.getItem(ARCHIVE_KEY);
+        allMessages = stored ? JSON.parse(stored) : [];
+        archivedMessages = archived ? JSON.parse(archived) : [];
 
-      const saveArchived = (archived) => {
-        localStorage.setItem(ARCHIVE_KEY, JSON.stringify(archived));
-      };
-
-      const seedFromExistingDOM = () => {
-        const existing = getCurrentMessages();
-        if (existing.length > 0) {
-          saveMessages();
+        if (allMessages.length === 0 && !localStorage.getItem('initialSeedDone')) {
+          // Seed from DOM if storage is empty for the first time
+          allMessages = Array.from(msgList.querySelectorAll('.message-item')).map((item, idx) => ({
+            id: Date.now() + idx,
+            sender: item.querySelector('.sender').textContent,
+            date: item.querySelector('.date').textContent,
+            subject: item.querySelector('h3').textContent,
+            body: item.querySelector('p').textContent,
+            status: item.classList.contains('unread') ? 'unread' : 'read'
+          }));
+          localStorage.setItem('initialSeedDone', 'true');
+          saveToStorage();
         }
+        renderMessages(allMessages);
       };
 
       const setAllRead = () => {
-        msgList.querySelectorAll('.message-item.unread').forEach(item => {
-          item.classList.remove('unread');
-          item.classList.add('read');
-        });
-        saveMessages();
+        allMessages.forEach(msg => msg.status = 'read');
+        renderMessages(allMessages);
       };
 
       const deleteRead = () => {
-        msgList.querySelectorAll('.message-item.read').forEach(item => item.remove());
-        saveMessages();
+        allMessages = allMessages.filter(msg => msg.status === 'unread');
+        renderMessages(allMessages);
       };
 
       const addNewMessage = () => {
         const now = new Date();
         const newMessage = {
+          id: Date.now(),
           sender: 'Clinic Bot',
           date: now.toLocaleDateString(),
           subject: 'New update from your physician',
           body: 'Please confirm your next appointment slot at your earliest convenience.',
           status: 'unread'
         };
-        const m = getCurrentMessages();
-        renderMessages([newMessage, ...m]);
+        allMessages.unshift(newMessage);
+        renderMessages(allMessages);
       };
 
       const deleteAll = () => {
-        msgList.innerHTML = '';
-        saveMessages();
-      };
-
-      const archiveMessage = (message) => {
-        const archived = loadArchived();
-        archived.push(message);
-        saveArchived(archived);
+        if (isViewingArchive) archivedMessages = [];
+        else allMessages = [];
+        renderMessages(isViewingArchive ? archivedMessages : allMessages);
       };
 
       const viewArchive = () => {
         isViewingArchive = !isViewingArchive;
         const btn = document.getElementById('btnViewArchive');
-        if (isViewingArchive) {
-          const archived = loadArchived();
-          renderMessages(archived);
-          btn.textContent = 'View Inbox';
-        } else {
-          const messages = loadMessages() || [];
-          renderMessages(messages);
-          btn.textContent = 'View Archive';
-        }
+        btn.textContent = isViewingArchive ? 'View Inbox' : 'View Archive';
+        renderMessages(isViewingArchive ? archivedMessages : allMessages);
       };
 
       const filterMessages = () => {
         const statusFilter = document.getElementById('filterStatus').value;
         const senderFilter = document.getElementById('filterSender').value;
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const messages = isViewingArchive ? loadArchived() : (loadMessages() || []);
-        const filtered = messages.filter(msg => {
+        const source = isViewingArchive ? archivedMessages : allMessages;
+
+        const filtered = source.filter(msg => {
           const statusMatch = statusFilter === 'all' || msg.status === statusFilter;
           const senderMatch = senderFilter === 'all' || msg.sender === senderFilter;
           const searchMatch = !searchTerm || msg.subject.toLowerCase().includes(searchTerm) || msg.body.toLowerCase().includes(searchTerm);
           return statusMatch && senderMatch && searchMatch;
         });
-        renderMessages(filtered);
+        renderMessages(filtered, true);
       };
 
       const updateSenderFilter = () => {
-        const messages = isViewingArchive ? loadArchived() : (loadMessages() || []);
-        const senders = [...new Set(messages.map(msg => msg.sender))];
+        const source = isViewingArchive ? archivedMessages : allMessages;
+        const senders = [...new Set(source.map(msg => msg.sender))];
         const filterSender = document.getElementById('filterSender');
+        const currentVal = filterSender.value;
         filterSender.innerHTML = '<option value="all">All</option>';
         senders.forEach(sender => {
           const option = document.createElement('option');
@@ -298,6 +271,7 @@
           option.textContent = sender;
           filterSender.appendChild(option);
         });
+        filterSender.value = currentVal;
       };
 
       const showReplyModal = (sender, subject) => {
@@ -307,6 +281,7 @@
 
       const hideReplyModal = () => {
         document.getElementById('replyModal').style.display = 'none';
+        document.getElementById('replyForm').reset();
       };
 
       msgList.addEventListener('click', event => {
@@ -314,33 +289,32 @@
         const item = target.closest('.message-item');
         if (!item) return;
 
+        const msgId = parseInt(item.dataset.id);
+        let source = isViewingArchive ? archivedMessages : allMessages;
+        const msgIndex = source.findIndex(m => m.id === msgId);
+        if (msgIndex === -1) return;
+        const msg = source[msgIndex];
+
         if (target.classList.contains('toggle-status')) {
-          if (item.classList.contains('unread')) {
-            item.classList.remove('unread');
-            item.classList.add('read');
-          } else {
-            item.classList.remove('read');
-            item.classList.add('unread');
-          }
-          saveMessages();
+          msg.status = msg.status === 'unread' ? 'read' : 'unread';
+          renderMessages(isViewingArchive ? archivedMessages : allMessages, true);
         }
 
         if (target.classList.contains('archive-item')) {
-          const message = {
-            sender: item.querySelector('.sender').textContent,
-            date: item.querySelector('.date').textContent,
-            subject: item.querySelector('h3').textContent,
-            body: item.querySelector('p').textContent,
-            status: item.classList.contains('unread') ? 'unread' : 'read'
-          };
-          archiveMessage(message);
-          item.remove();
-          saveMessages();
+          if (!isViewingArchive) {
+            allMessages.splice(msgIndex, 1);
+            archivedMessages.push(msg);
+            renderMessages(allMessages);
+          }
         }
 
         if (target.classList.contains('delete-item')) {
-          item.remove();
-          saveMessages();
+          source.splice(msgIndex, 1);
+          renderMessages(isViewingArchive ? archivedMessages : allMessages);
+        }
+
+        if (target.classList.contains('reply-item')) {
+          showReplyModal(msg.sender, msg.subject);
         }
       });
 
@@ -362,19 +336,11 @@
 
       document.getElementById('replyForm').addEventListener('submit', event => {
         event.preventDefault();
-        // Simulate sending reply
         alert('Reply sent!');
         hideReplyModal();
       });
 
-      const storedMessages = loadMessages();
-      if (storedMessages && storedMessages.length > 0) {
-        renderMessages(storedMessages);
-      } else {
-        seedFromExistingDOM();
-        const loadedAgain = loadMessages();
-        if (loadedAgain) renderMessages(loadedAgain);
-      }
+      loadFromStorage();
     });
   </script>
 </body>
