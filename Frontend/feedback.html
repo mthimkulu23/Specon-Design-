@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - PureHealth Centre</title>
+    <link rel="stylesheet" href="feedback.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h2>PureHealth Centre</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="lab_results.html" class="nav-item">
+                    <span class="nav-icon">🧪</span>
+                    <span>Lab Results</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Appointment</span>
+                </a>
+                <a href="prescriptions.html" class="nav-item">
+                    <span class="nav-icon">🗒️</span>
+                    <span>Prescriptions</span>
+                </a>
+                <a href="patient_inbox.html" class="nav-item">
+                    <span class="nav-icon">📥</span>
+                    <span>Inbox</span>
+                </a>
+                <a href="feedback.html" class="nav-item active">
+                    <span class="nav-icon">📝</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🎁</span>
+                    <span>Promotions</span>
+                </a>
+                <a href="reviews.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="booking_patients.html" class="nav-item">
+                    <span class="nav-icon">💬</span>
+                    <span>Bookings</span>
+                </a>
+                <a href="patient_settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Patient Settings</span>
+                </a>
+                <a href="doctor_settings.html" class="nav-item">
+                    <span class="nav-icon">👨‍⚕️</span>
+                    <span>Doctor's Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="feedback-outer">
+                <div class="feedback-card">
+                    <header class="feedback-header">
+                        <h1>We appreciate your feedback</h1>
+                        <p class="subtitle">We are always looking for ways to improve your experience.</p>
+                        <p class="subtitle mt">Please take a moment to evaluate and tell us what you think.</p>
+                    </header>
+
+                    <form class="feedback-form">
+                        <div class="rating-section">
+                            <div class="stars-input">
+                                <span class="star">☆</span>
+                                <span class="star">☆</span>
+                                <span class="star">☆</span>
+                                <span class="star">☆</span>
+                                <span class="star">☆</span>
+                            </div>
+                        </div>
+
+                        <div class="comment-section">
+                            <label>Comment:</label>
+                            <textarea placeholder="What can we do to improve your experience?"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" disabled>Submit My Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="feedback.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="patient_settings.css">
+    <title>Settings - PureHealth Centre</title>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h2>PureHealth Centre</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="lab_results.html" class="nav-item">
+                    <span class="nav-icon">🧪</span>
+                    <span>Lab Results</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Appointment</span>
+                </a>
+                <a href="prescriptions.html" class="nav-item">
+                    <span class="nav-icon">🗒️</span>
+                    <span>Prescriptions</span>
+                </a>
+                <a href="patient_inbox.html" class="nav-item">
+                    <span class="nav-icon">📥</span>
+                    <span>Inbox</span>
+                </a>
+                <a href="feedback.html" class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🎁</span>
+                    <span>Promotions</span>
+                </a>
+                <a href="reviews.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="booking_patients.html" class="nav-item">
+                    <span class="nav-icon">💬</span>
+                    <span>Bookings</span>
+                </a>
+                <a href="patient_settings.html" class="nav-item active">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Patient Settings</span>
+                </a>
+                <a href="doctor_settings.html" class="nav-item">
+                    <span class="nav-icon">👨‍⚕️</span>
+                    <span>Doctor's Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div id="settingsMain">
+                <header class="page-header">
+                    <h1>Settings</h1>
+                </header>
+
+                <section class="settings-list">
+                    <div class="settings-card" onclick="showSection('profileSection')">
+                        <div class="card-icon profile-icon">👤</div>
+                        <span class="card-label">Profile</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="settings-card" onclick="showSection('notificationsSection')">
+                        <div class="card-icon notifications-icon">🔔</div>
+                        <span class="card-label">Notifications</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="settings-card" onclick="showSection('privacySection')">
+                        <div class="card-icon privacy-icon">🛡️</div>
+                        <span class="card-label">Privacy</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="settings-card" onclick="showSection('helpSection')">
+                        <div class="card-icon help-icon">❓</div>
+                        <span class="card-label">Help</span>
+                        <span class="chevron">›</span>
+                    </div>
+                </section>
+            </div>
+
+            <div id="profileSection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
+                </div>
+                <header class="detail-header">
+                    <h2>Edit Profile</h2>
+                </header>
+                <form id="profileForm" class="settings-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="yourname@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="+1 (555) 000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label>Clinic Location</label>
+                        <input type="text" placeholder="e.g. Health Centre, Suite 101">
+                    </div>
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+
+            <div id="notificationsSection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
+                </div>
+                <header class="detail-header">
+                    <h2>Notifications</h2>
+                </header>
+                <div class="settings-options">
+                    <div class="option-item">
+                        <span>Email Notifications</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <span>SMS Reminders</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <span>New Appointment Alerts</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="privacySection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
+                </div>
+                <header class="detail-header">
+                    <h2>Privacy & Security</h2>
+                </header>
+                <div class="settings-options">
+                    <div class="option-item">
+                        <span>Public Profile Visibility</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <span>Share Data with Partners</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <span>Require 2FA for Login</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="helpSection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
+                </div>
+                <header class="detail-header">
+                    <h2>Help & Support</h2>
+                </header>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3>How do I change my clinic hours?</h3>
+                        <p>Go to the Dashboard and select "Schedule Management" to update your active hours.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Where can I view my patient billing?</h3>
+                        <p>Billing information is available under the "Accounts" tab in the main sidebar.</p>
+                    </div>
+                </div>
+                <div class="support-contact">
+                    <button class="support-btn">Contact Support</button>
+                </div>
+            </div>
+
+            <div id="patientPrescriptionsSection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
+                </div>
+                <header class="detail-header">
+                    <h2>My Prescriptions</h2>
+                </header>
+                <div class="settings-options">
+                    <div class="option-item">
+                        <div class="prescription-info">
+                            <span class="presc-title">Amoxicillin - 500mg</span>
+                            <span class="presc-date">Issued: Oct 24, 2023</span>
+                        </div>
+                        <span class="status-tag">Active</span>
+                    </div>
+                    <div class="option-item">
+                        <div class="prescription-info">
+                            <span class="presc-title">Lisinopril - 10mg</span>
+                            <span class="presc-date">Issued: Sept 12, 2023</span>
+                        </div>
+                        <span class="status-tag">Completed</span>
+                    </div>
+                </div>
+                <div class="support-contact">
+                    <button class="support-btn">Request Renewal</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="patient_settings.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap');
+
+:root {
+    --primary: #6a9c89;
+    --primary-dark: #4a7d6a;
+    --bg-main: hsl(210, 20%, 98%);
+    --bg-card-outer: #9fb1ad;
+    /* Greyish teal matching image outer */
+    --bg-card-inner: #ffffff;
+    --text-main: #1a1a1a;
+    --text-muted: #666;
+    --gold: #000;
+    /* Design uses black stars in some places, gold in others. Image shows gold headers but stars are black in list? No, image header stars are gold-ish but hard to tell. I'll use black stars as per image list for premium feel, or gold if specifically gold. Image looks mostly monochrome/high-contrast. */
+    --star-color: #000;
+    --white: #ffffff;
+    --border: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styling (Synchronized) */
+.sidebar {
+    width: 260px;
+    background: #6a9c89;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    padding-left: 10px;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.logo h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.nav-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px;
+    gap: 5px;
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for nav-menu */
+.nav-menu::-webkit-scrollbar {
+    width: 4px;
+}
+
+.nav-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.nav-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.nav-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+    background: var(--white);
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.nav-icon {
+    font-size: 20px;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 20px 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--bg-main);
+}
+
+.reviews-container {
+    width: 100%;
+    max-width: 600px;
+    /* Narrower like in the image */
+    background: var(--bg-card-outer);
+    padding: 40px 30px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.reviews-card {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.reviews-header {
+    text-align: center;
+}
+
+.reviews-header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.stars.big {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.star.gold {
+    color: #000;
+}
+
+.star.half {
+    position: relative;
+    color: #000;
+}
+
+/* Simple for now */
+.rating-number {
+    font-size: 24px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.review-count {
+    color: #333;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.patient-reviews h2,
+.submit-review h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sort-dropdown select {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 2px solid #000;
+    font-family: inherit;
+    font-weight: 500;
+    background: white;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.review-item {
+    background: white;
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.review-item.featured {
+    border: 2px solid #007bff;
+    /* Blue accent matching image */
+}
+
+.review-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.review-name {
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stars.small {
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.stars.small .empty {
+    color: #ccc;
+}
+
+.verified-tag {
+    font-size: 12px;
+    color: #000;
+    font-weight: 700;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.review-text {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.reply-btn {
+    padding: 4px 15px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    background: transparent;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.submit-review {
+    margin-top: 20px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: none;
+    background: white;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    height: 120px;
+    resize: none;
+}
+
+.rating-input {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+}
+
+.rating-input label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.stars-input {
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.stars-input .star.selected {
+    color: #000;
+}
+
+.submit-btn {
+    background: rgba(0, 0, 0, 0.1);
+    color: #666;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .reviews-container {
+        padding: 20px 15px;
+    }
+}

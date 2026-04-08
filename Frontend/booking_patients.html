@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="booking_patients.css">
+    <title>Bookings - PureHealth Centre</title>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h2>PureHealth Centre</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="lab_results.html" class="nav-item">
+                    <span class="nav-icon">🧪</span>
+                    <span>Lab Results</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Appointment</span>
+                </a>
+                <a href="prescriptions.html" class="nav-item">
+                    <span class="nav-icon">🗒️</span>
+                    <span>Prescriptions</span>
+                </a>
+                <a href="patient_inbox.html" class="nav-item">
+                    <span class="nav-icon">📥</span>
+                    <span>Inbox</span>
+                </a>
+                <a href="feedback.html" class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🎁</span>
+                    <span>Promotions</span>
+                </a>
+                <a href="reviews.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="booking_patients.html" class="nav-item active">
+                    <span class="nav-icon">💬</span>
+                    <span>Bookings</span>
+                </a>
+                <a href="patient_settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Patient Settings</span>
+                </a>
+                <a href="doctor_settings.html" class="nav-item">
+                    <span class="nav-icon">👨‍⚕️</span>
+                    <span>Doctor's Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Doctors Bookings From Patients</h1>
+            </header>
+
+            <div class="booking-form-container">
+                <form action="#" method="POST">
+                    <!-- 1. Patient Details -->
+                    <section class="form-section">
+                        <h2 class="section-title">1. Patients Details</h2>
+                        <div class="grid-container">
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" id="first_name" name="first_name" placeholder="Enter first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" placeholder="Enter last name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Enter phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" name="dob">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="" selected disabled hidden>Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="address">Full Address</label>
+                                <input type="text" id="address" name="address" placeholder="Enter full address">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 2. Reason for Visits -->
+                    <section class="form-section">
+                        <h2 class="section-title">2. Reason for Visits</h2>
+                        <div class="form-group full-width">
+                            <textarea name="reason_1" placeholder="Primary reason for visit..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <textarea name="reason_2" placeholder="Secondary concerns (if any)..."></textarea>
+                        </div>
+                        <div class="radio-group">
+                            <span>is it an emergency?</span>
+                            <label class="radio-item">
+                                <input type="radio" name="emergency" value="yes"> yes
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="emergency" value="no"> no
+                            </label>
+                        </div>
+                    </section>
+
+                    <!-- 3. Appointment Preferences -->
+                    <section class="form-section">
+                        <h2 class="section-title">3. Appointment Preferences</h2>
+                        <div class="grid-container">
+                            <div class="form-group">
+                                <label for="pref_doctor">Preferred Doctor</label>
+                                <input type="text" id="pref_doctor" name="pref_doctor"
+                                    placeholder="Enter doctor's name">
+                            </div>
+                            <div class="form-group">
+                                <label for="doc_speciality">Doctor's Speciality</label>
+                                <select id="doc_speciality" name="doc_speciality" required>
+                                    <option value="" selected disabled hidden>Doctors Speciality</option>
+                                    <option value="gp">General Practitioner</option>
+                                    <option value="cardio">Cardiologist</option>
+                                    <option value="derma">Dermatologist</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="pref_date">Preferred Date</label>
+                                <input type="date" id="pref_date" name="pref_date">
+                            </div>
+                            <div class="form-group">
+                                <label for="pref_time">Preferred Time Slot</label>
+                                <select id="pref_time" name="pref_time" required>
+                                    <option value="" selected disabled hidden>Preferred Time Slot</option>
+                                    <option value="morning">Morning (08:00 - 12:00)</option>
+                                    <option value="afternoon">Afternoon (12:00 - 17:00)</option>
+                                    <option value="evening">Evening (17:00 - 20:00)</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <div class="radio-group" style="justify-content: flex-start; gap: 40px;">
+                                    <span>Appointment Mode:</span>
+                                    <label class="radio-item">
+                                        <input type="radio" name="mode" value="in-person"> In-person
+                                    </label>
+                                    <label class="radio-item">
+                                        <input type="radio" name="mode" value="virtual"> Virtual Co
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 4. Medical history -->
+                    <section class="form-section medical-history-section">
+                        <h2 class="section-title">4. Medical history (Optional but Useful)</h2>
+                        <div class="form-group full-width">
+                            <textarea name="medical_history" placeholder="Enter relevant medical history..."></textarea>
+                        </div>
+                        <div class="grid-container">
+                            <div class="form-group">
+                                <label for="allergies">Known Allergies</label>
+                                <input type="text" id="allergies" name="allergies" placeholder="List allergies">
+                            </div>
+                            <div class="form-group">
+                                <label for="medications">Current Medications</label>
+                                <input type="text" id="medications" name="medications" placeholder="List medications">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 5. Clinic / hospital selection & 6. Payment information -->
+                    <div class="payment-section">
+                        <section class="form-section">
+                            <h2 class="section-title">5. Clinic / hospital selection</h2>
+                            <div class="form-group">
+                                <label for="branch">Branch Name</label>
+                                <input type="text" id="branch" name="branch" placeholder="Enter branch name">
+                            </div>
+                            <div class="form-group" style="margin-top: 15px;">
+                                <label for="clinic_address">Address</label>
+                                <input type="text" id="clinic_address" name="clinic_address"
+                                    placeholder="Enter address">
+                            </div>
+                        </section>
+
+                        <section class="form-section">
+                            <h2 class="section-title">6. Payment information</h2>
+                            <div class="payment-options">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="payment" value="medical_aid"> Medical Aid details
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="payment" value="self_pay"> Self-pay option
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="payment" value="policy"> Policy Number (if applicable)
+                                </label>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="submit-btn-container">
+                        <button type="submit" class="submit-btn">Submit Booking</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

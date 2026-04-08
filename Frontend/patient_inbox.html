@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="patient_inbox.css">
+  <title>Patient Inbox - PureHealth Centre</title>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <h2>PureHealth Centre</h2>
+      </div>
+      <nav class="nav-menu">
+        <a href="lab_results.html" class="nav-item">
+          <span class="nav-icon">🧪</span>
+          <span>Lab Results</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">🏠</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">📅</span>
+          <span>Appointment</span>
+        </a>
+        <a href="prescriptions.html" class="nav-item">
+          <span class="nav-icon">🗒️</span>
+          <span>Prescriptions</span>
+        </a>
+        <a href="patient_inbox.html" class="nav-item active">
+          <span class="nav-icon">📥</span>
+          <span>Inbox</span>
+        </a>
+        <a href="feedback.html" class="nav-item">
+          <span class="nav-icon">📝</span>
+          <span>Feedback</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-icon">🎁</span>
+          <span>Promotions</span>
+        </a>
+        <a href="reviews.html" class="nav-item">
+          <span class="nav-icon">📊</span>
+          <span>Reviews</span>
+        </a>
+        <a href="booking_patients.html" class="nav-item">
+          <span class="nav-icon">💬</span>
+          <span>Bookings</span>
+        </a>
+        <a href="patient_settings.html" class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          <span>Patient Settings</span>
+        </a>
+        <a href="doctor_settings.html" class="nav-item">
+          <span class="nav-icon">👨‍⚕️</span>
+          <span>Doctor's Settings</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="nav-item logout">
+          <span class="nav-icon">🚪</span>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="page-header">
+        <h1>Patient Inbox</h1>
+        <p>Stay updated with your appointments, results, and messages from the clinic.</p>
+      </header>
+      <section class="inbox-actions">
+        <button id="btnNewMessage" class="btn primary">New Message</button>
+        <button id="btnMarkRead" class="btn">Mark all as read</button>
+        <button id="btnDeleteRead" class="btn">Delete read</button>
+        <button id="btnDeleteAll" class="btn danger">Delete all</button>
+        <button id="btnViewArchive" class="btn">View Archive</button>
+      </section>
+      <section class="inbox-search">
+        <input type="text" id="searchInput" placeholder="Search messages...">
+      </section>
+      <section class="inbox-filters">
+        <label for="filterStatus">Filter by status:</label>
+        <select id="filterStatus">
+          <option value="all">All</option>
+          <option value="unread">Unread</option>
+          <option value="read">Read</option>
+        </select>
+        <label for="filterSender">Filter by sender:</label>
+        <select id="filterSender">
+          <option value="all">All</option>
+        </select>
+      </section>
+      <section class="message-list">
+        <article class="message-item unread">
+          <div class="message-meta">
+            <span class="sender">Dr. Smith</span>
+            <span class="date">11/03/2025</span>
+          </div>
+          <h3>Appointment Reminder</h3>
+          <p>Your appointment is scheduled for 12 Dec at 10:00 AM. Please bring your insurance card.</p>
+        </article>
+        <article class="message-item">
+          <div class="message-meta">
+            <span class="sender">Hospital Admin</span>
+            <span class="date">11/28/2025</span>
+          </div>
+          <h3>Lab Results are ready</h3>
+          <p>Your lab results are now available on the patient portal. Log in to review details.</p>
+        </article>
+        <article class="message-item">
+          <div class="message-meta">
+            <span class="sender">Dr. Jones</span>
+            <span class="date">11/21/2025</span>
+          </div>
+          <h3>Prescription Refill</h3>
+          <p>Reminder to refill your prescription by 10 December. Contact pharmacy to confirm availability.</p>
+        </article>
+        <article class="message-item">
+          <div class="message-meta">
+            <span class="sender">System</span>
+            <span class="date">11/15/2025</span>
+          </div>
+          <h3>New Messages</h3>
+          <p>You have new messages from the hospital. View your inbox for more details.</p>
+        </article>
+      </section>
+    </main>
+  </div>
+  <div id="replyModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Reply to Message</h2>
+      <form id="replyForm">
+        <label for="replySubject">Subject:</label>
+        <input type="text" id="replySubject" required>
+        <label for="replyBody">Message:</label>
+        <textarea id="replyBody" required></textarea>
+        <button type="submit" class="btn primary">Send Reply</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const STORAGE_KEY = 'patientInboxMessages';
+      const ARCHIVE_KEY = 'patientInboxArchived';
+      const msgList = document.querySelector('.message-list');
+      let allMessages = [];
+      let archivedMessages = [];
+      let isViewingArchive = false;
+
+      const buildMessageElement = ({ id, sender, date, subject, body, status }, isArchived) => {
+        const article = document.createElement('article');
+        article.className = `message-item ${status === 'unread' ? 'unread' : 'read'}`;
+        article.dataset.id = id;
+        article.innerHTML = `
+            <div class="message-meta">
+              <span class="sender">${sender}</span>
+              <span class="date">${date}</span>
+            </div>
+            <h3>${subject}</h3>
+            <p>${body}</p>
+            <div class="message-actions">
+              <button class="message-action-btn toggle-status">${status === 'unread' ? 'Mark read' : 'Mark unread'}</button>
+              ${isArchived ? '' : '<button class="message-action-btn reply-item">Reply</button>'}
+              <button class="message-action-btn archive-item">${isArchived ? 'Unarchive' : 'Archive'}</button>
+              <button class="message-action-btn delete-item">Delete</button>
+            </div>
+          `;
+        return article;
+      };
+
+      const renderMessages = (messages, isApplyingFilter = false) => {
+        msgList.innerHTML = '';
+        messages.forEach(message => msgList.appendChild(buildMessageElement(message, isViewingArchive)));
+        if (!isViewingArchive && !isApplyingFilter) {
+          saveToStorage();
+        }
+        updateSenderFilter();
+      };
+
+      const saveToStorage = () => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(allMessages));
+        localStorage.setItem(ARCHIVE_KEY, JSON.stringify(archivedMessages));
+      };
+
+      const loadFromStorage = () => {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        const archived = localStorage.getItem(ARCHIVE_KEY);
+        allMessages = stored ? JSON.parse(stored) : [];
+        archivedMessages = archived ? JSON.parse(archived) : [];
+
+        let needsSave = false;
+        const ensureIds = (list) => {
+          list.forEach((msg) => {
+            if (!msg.id) {
+              msg.id = Date.now() + Math.floor(Math.random() * 1000000);
+              needsSave = true;
+            }
+          });
+        };
+        ensureIds(allMessages);
+        ensureIds(archivedMessages);
+
+        if (allMessages.length === 0 && !localStorage.getItem('initialSeedDone')) {
+          allMessages = Array.from(msgList.querySelectorAll('.message-item')).map((item) => ({
+            id: Date.now() + Math.floor(Math.random() * 1000000),
+            sender: item.querySelector('.sender').textContent,
+            date: item.querySelector('.date').textContent,
+            subject: item.querySelector('h3').textContent,
+            body: item.querySelector('p').textContent,
+            status: item.classList.contains('unread') ? 'unread' : 'read'
+          }));
+          localStorage.setItem('initialSeedDone', 'true');
+          needsSave = true;
+        }
+
+        if (needsSave) {
+          saveToStorage();
+        }
+        renderMessages(allMessages);
+      };
+
+      const setAllRead = () => {
+        allMessages.forEach(msg => msg.status = 'read');
+        saveToStorage();
+        filterMessages();
+      };
+
+      const deleteRead = () => {
+        allMessages = allMessages.filter(msg => msg.status === 'unread');
+        saveToStorage();
+        filterMessages();
+      };
+
+      const addNewMessage = () => {
+        const now = new Date();
+        const newMessage = {
+          id: Date.now(),
+          sender: 'Clinic Bot',
+          date: now.toLocaleDateString(),
+          subject: 'New update from your physician',
+          body: 'Please confirm your next appointment slot at your earliest convenience.',
+          status: 'unread'
+        };
+        allMessages.unshift(newMessage);
+        saveToStorage();
+        filterMessages();
+      };
+
+      const deleteAll = () => {
+        if (isViewingArchive) archivedMessages = [];
+        else allMessages = [];
+        saveToStorage();
+        filterMessages();
+      };
+
+      const viewArchive = () => {
+        isViewingArchive = !isViewingArchive;
+        const btn = document.getElementById('btnViewArchive');
+        btn.textContent = isViewingArchive ? 'View Inbox' : 'View Archive';
+        renderMessages(isViewingArchive ? archivedMessages : allMessages);
+      };
+
+      const filterMessages = () => {
+        const statusFilter = document.getElementById('filterStatus').value;
+        const senderFilter = document.getElementById('filterSender').value;
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const source = isViewingArchive ? archivedMessages : allMessages;
+
+        const filtered = source.filter(msg => {
+          const statusMatch = statusFilter === 'all' || msg.status === statusFilter;
+          const senderMatch = senderFilter === 'all' || msg.sender === senderFilter;
+          const searchMatch = !searchTerm || msg.subject.toLowerCase().includes(searchTerm) || msg.body.toLowerCase().includes(searchTerm);
+          return statusMatch && senderMatch && searchMatch;
+        });
+        renderMessages(filtered, true);
+      };
+
+      const updateSenderFilter = () => {
+        const source = isViewingArchive ? archivedMessages : allMessages;
+        const senders = [...new Set(source.map(msg => msg.sender))];
+        const filterSender = document.getElementById('filterSender');
+        const currentVal = filterSender.value;
+        filterSender.innerHTML = '<option value="all">All</option>';
+        senders.forEach(sender => {
+          const option = document.createElement('option');
+          option.value = sender;
+          option.textContent = sender;
+          filterSender.appendChild(option);
+        });
+        filterSender.value = currentVal;
+      };
+
+      const showReplyModal = (sender, subject) => {
+        document.getElementById('replySubject').value = `Re: ${subject}`;
+        document.getElementById('replyModal').style.display = 'block';
+      };
+
+      const hideReplyModal = () => {
+        document.getElementById('replyModal').style.display = 'none';
+        document.getElementById('replyForm').reset();
+      };
+
+      msgList.addEventListener('click', event => {
+        const target = event.target;
+        const item = target.closest('.message-item');
+        if (!item) return;
+
+        const msgId = Number(item.dataset.id);
+        let source = isViewingArchive ? archivedMessages : allMessages;
+        const msgIndex = source.findIndex(m => m.id === msgId);
+
+        if (msgIndex === -1) {
+          // Fallback: If ID matching fails, reload storage to ensure consistency
+          loadFromStorage();
+          return;
+        }
+        const msg = source[msgIndex];
+
+        if (target.classList.contains('toggle-status')) {
+          msg.status = msg.status === 'unread' ? 'read' : 'unread';
+          saveToStorage();
+          filterMessages(); // Re-apply current filters to update view
+        }
+
+        if (target.classList.contains('archive-item')) {
+          if (!isViewingArchive) {
+            allMessages.splice(msgIndex, 1);
+            archivedMessages.push(msg);
+          } else {
+            archivedMessages.splice(msgIndex, 1);
+            allMessages.push(msg);
+          }
+          saveToStorage();
+          filterMessages();
+        }
+
+        if (target.classList.contains('delete-item')) {
+          source.splice(msgIndex, 1);
+          saveToStorage();
+          filterMessages();
+        }
+
+        if (target.classList.contains('reply-item')) {
+          showReplyModal(msg.sender, msg.subject);
+        }
+      });
+
+      document.getElementById('btnNewMessage').addEventListener('click', addNewMessage);
+      document.getElementById('btnMarkRead').addEventListener('click', setAllRead);
+      document.getElementById('btnDeleteRead').addEventListener('click', deleteRead);
+      document.getElementById('btnDeleteAll').addEventListener('click', deleteAll);
+      document.getElementById('btnViewArchive').addEventListener('click', viewArchive);
+      document.getElementById('filterStatus').addEventListener('change', filterMessages);
+      document.getElementById('filterSender').addEventListener('change', filterMessages);
+      document.getElementById('searchInput').addEventListener('input', filterMessages);
+
+      document.querySelector('.close').addEventListener('click', hideReplyModal);
+      window.addEventListener('click', event => {
+        if (event.target === document.getElementById('replyModal')) {
+          hideReplyModal();
+        }
+      });
+
+      document.getElementById('replyForm').addEventListener('submit', event => {
+        event.preventDefault();
+        alert('Reply sent!');
+        hideReplyModal();
+      });
+
+      loadFromStorage();
+    });
+  </script>
+</body>
+
+</html>
