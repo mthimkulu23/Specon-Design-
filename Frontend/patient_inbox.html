@@ -1,119 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="patient_inbox.css">
-    <title>Patient Inbox - PureHealth Centre</title>
-</head>
-<body>
-    <div class="dashboard-container">
-        <aside class="sidebar">
-            <div class="logo">
-                <div class="logo-icon"></div>
-                <h2>PureHealth Centre</h2>
-            </div>
-            <nav class="nav-menu">
-                <a href="#" class="nav-item"><span class="icon icon-dashboard"></span><span>Dashboard</span></a>
-                <a href="#" class="nav-item"><span class="icon icon-bookings"></span><span>Bookings</span></a>
-                <a href="#" class="nav-item"><span class="icon icon-appointment"></span><span>Appointment</span></a>
-                <a href="#" class="nav-item active"><span class="icon icon-inbox"></span><span>Inbox</span></a>
-                <a href="#" class="nav-item"><span class="icon icon-reviews"></span><span>Reviews</span></a>
-                <a href="#" class="nav-item"><span class="icon icon-feedback"></span><span>Feedback</span></a>
-                <a href="#" class="nav-item"><span class="icon icon-prescriptions"></span><span>Prescriptions</span></a>
-                <a href="#" class="nav-item"><span class="icon icon-settings"></span><span>Settings</span></a>
-            </nav>
-            <div class="sidebar-footer">
-                <a href="#" class="nav-item"><span class="icon icon-logout"></span><span>Logout</span></a>
-            </div>
-        </aside>
-        <main class="main-content">
-            <header class="page-header">
-                <h1>Patient Inbox</h1>
-                <p>Stay updated with your appointments, results, and messages from the clinic.</p>
-            </header>
-            <section class="inbox-actions">
-                <button id="btnNewMessage" class="btn primary">New Message</button>
-                <button id="btnMarkRead" class="btn">Mark all as read</button>
-                <button id="btnDeleteRead" class="btn">Delete read</button>
-                <button id="btnDeleteAll" class="btn danger">Delete all</button>
-                <button id="btnViewArchive" class="btn">View Archive</button>
-            </section>
-            <section class="inbox-search">
-                <input type="text" id="searchInput" placeholder="Search messages...">
-            </section>
-            <section class="inbox-filters">
-                <label for="filterStatus">Filter by status:</label>
-                <select id="filterStatus">
-                    <option value="all">All</option>
-                    <option value="unread">Unread</option>
-                    <option value="read">Read</option>
-                </select>
-                <label for="filterSender">Filter by sender:</label>
-                <select id="filterSender">
-                    <option value="all">All</option>
-                </select>
-            </section>
-            <section class="message-list">
-                <article class="message-item unread">
-                    <div class="message-meta">
-                        <span class="sender">Dr. Smith</span>
-                        <span class="date">11/03/2025</span>
-                    </div>
-                    <h3>Appointment Reminder</h3>
-                    <p>Your appointment is scheduled for 12 Dec at 10:00 AM. Please bring your insurance card.</p>
-                </article>
-                <article class="message-item">
-                    <div class="message-meta">
-                        <span class="sender">Hospital Admin</span>
-                        <span class="date">11/28/2025</span>
-                    </div>
-                    <h3>Lab Results are ready</h3>
-                    <p>Your lab results are now available on the patient portal. Log in to review details.</p>
-                </article>
-                <article class="message-item">
-                    <div class="message-meta">
-                        <span class="sender">Dr. Jones</span>
-                        <span class="date">11/21/2025</span>
-                    </div>
-                    <h3>Prescription Refill</h3>
-                    <p>Reminder to refill your prescription by 10 December. Contact pharmacy to confirm availability.</p>
-                </article>
-                <article class="message-item">
-                    <div class="message-meta">
-                        <span class="sender">System</span>
-                        <span class="date">11/15/2025</span>
-                    </div>
-                    <h3>New Messages</h3>
-                    <p>You have new messages from the hospital. View your inbox for more details.</p>
-                </article>
-            </section>
-        </main>
-    </div>
-    <div id="replyModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Reply to Message</h2>
-            <form id="replyForm">
-                <label for="replySubject">Subject:</label>
-                <input type="text" id="replySubject" required>
-                <label for="replyBody">Message:</label>
-                <textarea id="replyBody" required></textarea>
-                <button type="submit" class="btn primary">Send Reply</button>
-            </form>
-        </div>
-    </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const STORAGE_KEY = 'patientInboxMessages';
-        const ARCHIVE_KEY = 'patientInboxArchived';
-        const msgList = document.querySelector('.message-list');
-        let isViewingArchive = false;
 
-        const buildMessageElement = ({ sender, date, subject, body, status }) => {
-          const article = document.createElement('article');
-          article.className = `message-item ${status === 'unread' ? 'unread' : 'read'}`;
-          article.innerHTML = `
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="patient_inbox.css">
+  <title>Patient Inbox - PureHealth Centre</title>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <h2>PureHealth Centre</h2>
+      </div>
+      <nav class="nav-menu">
+        <a href="{{ url_for('main.doctor_dashboard') }}" class="nav-item">
+          <span class="icon icon-dashboard"></span>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon icon-bookings"></span>
+          <span>Bookings</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon icon-appointment"></span>
+          <span>Appointment</span>
+        </a>
+        <a href="#" class="nav-item active">
+          <span class="icon icon-inbox"></span>
+          <span>Inbox</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon icon-reviews"></span>
+          <span>Reviews</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon icon-feedback"></span>
+          <span>Feedback</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon icon-prescriptions"></span>
+          <span>Prescriptions</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon icon-promotions"></span>
+          <span>Promotions</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="icon icon-settings"></span>
+          <span>Clinic Settings</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="{{ url_for('main.logout') }}" class="nav-item">
+          <span class="icon icon-logout"></span>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="page-header">
+        <h1>Patient Inbox</h1>
+        <p>Stay updated with your appointments, results, and messages from the clinic.</p>
+      </header>
+      <section class="inbox-actions">
+        <button id="btnNewMessage" class="btn primary">New Message</button>
+        <button id="btnMarkRead" class="btn">Mark all as read</button>
+        <button id="btnDeleteRead" class="btn">Delete read</button>
+        <button id="btnDeleteAll" class="btn danger">Delete all</button>
+        <button id="btnViewArchive" class="btn">View Archive</button>
+      </section>
+      <section class="inbox-search">
+        <input type="text" id="searchInput" placeholder="Search messages...">
+      </section>
+      <section class="inbox-filters">
+        <label for="filterStatus">Filter by status:</label>
+        <select id="filterStatus">
+          <option value="all">All</option>
+          <option value="unread">Unread</option>
+          <option value="read">Read</option>
+        </select>
+        <label for="filterSender">Filter by sender:</label>
+        <select id="filterSender">
+          <option value="all">All</option>
+        </select>
+      </section>
+      <section class="message-list">
+        <article class="message-item unread">
+          <div class="message-meta">
+            <span class="sender">Dr. Smith</span>
+            <span class="date">11/03/2025</span>
+          </div>
+          <h3>Appointment Reminder</h3>
+          <p>Your appointment is scheduled for 12 Dec at 10:00 AM. Please bring your insurance card.</p>
+        </article>
+        <article class="message-item">
+          <div class="message-meta">
+            <span class="sender">Hospital Admin</span>
+            <span class="date">11/28/2025</span>
+          </div>
+          <h3>Lab Results are ready</h3>
+          <p>Your lab results are now available on the patient portal. Log in to review details.</p>
+        </article>
+        <article class="message-item">
+          <div class="message-meta">
+            <span class="sender">Dr. Jones</span>
+            <span class="date">11/21/2025</span>
+          </div>
+          <h3>Prescription Refill</h3>
+          <p>Reminder to refill your prescription by 10 December. Contact pharmacy to confirm availability.</p>
+        </article>
+        <article class="message-item">
+          <div class="message-meta">
+            <span class="sender">System</span>
+            <span class="date">11/15/2025</span>
+          </div>
+          <h3>New Messages</h3>
+          <p>You have new messages from the hospital. View your inbox for more details.</p>
+        </article>
+      </section>
+    </main>
+  </div>
+  <div id="replyModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Reply to Message</h2>
+      <form id="replyForm">
+        <label for="replySubject">Subject:</label>
+        <input type="text" id="replySubject" required>
+        <label for="replyBody">Message:</label>
+        <textarea id="replyBody" required></textarea>
+        <button type="submit" class="btn primary">Send Reply</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const STORAGE_KEY = 'patientInboxMessages';
+      const ARCHIVE_KEY = 'patientInboxArchived';
+      const msgList = document.querySelector('.message-list');
+      let isViewingArchive = false;
+
+      const buildMessageElement = ({ sender, date, subject, body, status }) => {
+        const article = document.createElement('article');
+        article.className = `message-item ${status === 'unread' ? 'unread' : 'read'}`;
+        article.innerHTML = `
             <div class="message-meta">
               <span class="sender">${sender}</span>
               <span class="date">${date}</span>
@@ -127,217 +165,218 @@
               <button class="message-action-btn delete-item">Delete</button>
             </div>
           `;
-          return article;
-        };
+        return article;
+      };
 
-        const getCurrentMessages = () => {
-          return Array.from(msgList.querySelectorAll('.message-item')).map(item => ({
+      const getCurrentMessages = () => {
+        return Array.from(msgList.querySelectorAll('.message-item')).map(item => ({
+          sender: item.querySelector('.sender').textContent,
+          date: item.querySelector('.date').textContent,
+          subject: item.querySelector('h3').textContent,
+          body: item.querySelector('p').textContent,
+          status: item.classList.contains('unread') ? 'unread' : 'read'
+        }));
+      };
+
+      const saveMessages = () => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(getCurrentMessages()));
+      };
+
+      const renderMessages = messages => {
+        msgList.innerHTML = '';
+        messages.forEach(message => msgList.appendChild(buildMessageElement(message)));
+        if (!isViewingArchive) {
+          saveMessages();
+        }
+        updateSenderFilter();
+      };
+
+      const loadMessages = () => {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        try {
+          return JSON.parse(raw);
+        } catch (e) {
+          return null;
+        }
+      };
+
+      const loadArchived = () => {
+        const raw = localStorage.getItem(ARCHIVE_KEY);
+        if (!raw) return [];
+        try {
+          return JSON.parse(raw);
+        } catch (e) {
+          return [];
+        }
+      };
+
+      const saveArchived = (archived) => {
+        localStorage.setItem(ARCHIVE_KEY, JSON.stringify(archived));
+      };
+
+      const seedFromExistingDOM = () => {
+        const existing = getCurrentMessages();
+        if (existing.length > 0) {
+          saveMessages();
+        }
+      };
+
+      const setAllRead = () => {
+        msgList.querySelectorAll('.message-item.unread').forEach(item => {
+          item.classList.remove('unread');
+          item.classList.add('read');
+        });
+        saveMessages();
+      };
+
+      const deleteRead = () => {
+        msgList.querySelectorAll('.message-item.read').forEach(item => item.remove());
+        saveMessages();
+      };
+
+      const addNewMessage = () => {
+        const now = new Date();
+        const newMessage = {
+          sender: 'Clinic Bot',
+          date: now.toLocaleDateString(),
+          subject: 'New update from your physician',
+          body: 'Please confirm your next appointment slot at your earliest convenience.',
+          status: 'unread'
+        };
+        const m = getCurrentMessages();
+        renderMessages([newMessage, ...m]);
+      };
+
+      const deleteAll = () => {
+        msgList.innerHTML = '';
+        saveMessages();
+      };
+
+      const archiveMessage = (message) => {
+        const archived = loadArchived();
+        archived.push(message);
+        saveArchived(archived);
+      };
+
+      const viewArchive = () => {
+        isViewingArchive = !isViewingArchive;
+        const btn = document.getElementById('btnViewArchive');
+        if (isViewingArchive) {
+          const archived = loadArchived();
+          renderMessages(archived);
+          btn.textContent = 'View Inbox';
+        } else {
+          const messages = loadMessages() || [];
+          renderMessages(messages);
+          btn.textContent = 'View Archive';
+        }
+      };
+
+      const filterMessages = () => {
+        const statusFilter = document.getElementById('filterStatus').value;
+        const senderFilter = document.getElementById('filterSender').value;
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const messages = isViewingArchive ? loadArchived() : (loadMessages() || []);
+        const filtered = messages.filter(msg => {
+          const statusMatch = statusFilter === 'all' || msg.status === statusFilter;
+          const senderMatch = senderFilter === 'all' || msg.sender === senderFilter;
+          const searchMatch = !searchTerm || msg.subject.toLowerCase().includes(searchTerm) || msg.body.toLowerCase().includes(searchTerm);
+          return statusMatch && senderMatch && searchMatch;
+        });
+        renderMessages(filtered);
+      };
+
+      const updateSenderFilter = () => {
+        const messages = isViewingArchive ? loadArchived() : (loadMessages() || []);
+        const senders = [...new Set(messages.map(msg => msg.sender))];
+        const filterSender = document.getElementById('filterSender');
+        filterSender.innerHTML = '<option value="all">All</option>';
+        senders.forEach(sender => {
+          const option = document.createElement('option');
+          option.value = sender;
+          option.textContent = sender;
+          filterSender.appendChild(option);
+        });
+      };
+
+      const showReplyModal = (sender, subject) => {
+        document.getElementById('replySubject').value = `Re: ${subject}`;
+        document.getElementById('replyModal').style.display = 'block';
+      };
+
+      const hideReplyModal = () => {
+        document.getElementById('replyModal').style.display = 'none';
+      };
+
+      msgList.addEventListener('click', event => {
+        const target = event.target;
+        const item = target.closest('.message-item');
+        if (!item) return;
+
+        if (target.classList.contains('toggle-status')) {
+          if (item.classList.contains('unread')) {
+            item.classList.remove('unread');
+            item.classList.add('read');
+          } else {
+            item.classList.remove('read');
+            item.classList.add('unread');
+          }
+          saveMessages();
+        }
+
+        if (target.classList.contains('archive-item')) {
+          const message = {
             sender: item.querySelector('.sender').textContent,
             date: item.querySelector('.date').textContent,
             subject: item.querySelector('h3').textContent,
             body: item.querySelector('p').textContent,
             status: item.classList.contains('unread') ? 'unread' : 'read'
-          }));
-        };
-
-        const saveMessages = () => {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(getCurrentMessages()));
-        };
-
-        const renderMessages = messages => {
-          msgList.innerHTML = '';
-          messages.forEach(message => msgList.appendChild(buildMessageElement(message)));
-          if (!isViewingArchive) {
-            saveMessages();
-          }
-          updateSenderFilter();
-        };
-
-        const loadMessages = () => {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return null;
-          try {
-            return JSON.parse(raw);
-          } catch (e) {
-            return null;
-          }
-        };
-
-        const loadArchived = () => {
-          const raw = localStorage.getItem(ARCHIVE_KEY);
-          if (!raw) return [];
-          try {
-            return JSON.parse(raw);
-          } catch (e) {
-            return [];
-          }
-        };
-
-        const saveArchived = (archived) => {
-          localStorage.setItem(ARCHIVE_KEY, JSON.stringify(archived));
-        };
-
-        const seedFromExistingDOM = () => {
-          const existing = getCurrentMessages();
-          if (existing.length > 0) {
-            saveMessages();
-          }
-        };
-
-        const setAllRead = () => {
-          msgList.querySelectorAll('.message-item.unread').forEach(item => {
-            item.classList.remove('unread');
-            item.classList.add('read');
-          });
-          saveMessages();
-        };
-
-        const deleteRead = () => {
-          msgList.querySelectorAll('.message-item.read').forEach(item => item.remove());
-          saveMessages();
-        };
-
-        const addNewMessage = () => {
-          const now = new Date();
-          const newMessage = {
-            sender: 'Clinic Bot',
-            date: now.toLocaleDateString(),
-            subject: 'New update from your physician',
-            body: 'Please confirm your next appointment slot at your earliest convenience.',
-            status: 'unread'
           };
-          const m = getCurrentMessages();
-          renderMessages([newMessage, ...m]);
-        };
-
-        const deleteAll = () => {
-          msgList.innerHTML = '';
+          archiveMessage(message);
+          item.remove();
           saveMessages();
-        };
+        }
 
-        const archiveMessage = (message) => {
-          const archived = loadArchived();
-          archived.push(message);
-          saveArchived(archived);
-        };
-
-        const viewArchive = () => {
-          isViewingArchive = !isViewingArchive;
-          const btn = document.getElementById('btnViewArchive');
-          if (isViewingArchive) {
-            const archived = loadArchived();
-            renderMessages(archived);
-            btn.textContent = 'View Inbox';
-          } else {
-            const messages = loadMessages() || [];
-            renderMessages(messages);
-            btn.textContent = 'View Archive';
-          }
-        };
-
-        const filterMessages = () => {
-          const statusFilter = document.getElementById('filterStatus').value;
-          const senderFilter = document.getElementById('filterSender').value;
-          const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-          const messages = isViewingArchive ? loadArchived() : (loadMessages() || []);
-          const filtered = messages.filter(msg => {
-            const statusMatch = statusFilter === 'all' || msg.status === statusFilter;
-            const senderMatch = senderFilter === 'all' || msg.sender === senderFilter;
-            const searchMatch = !searchTerm || msg.subject.toLowerCase().includes(searchTerm) || msg.body.toLowerCase().includes(searchTerm);
-            return statusMatch && senderMatch && searchMatch;
-          });
-          renderMessages(filtered);
-        };
-
-        const updateSenderFilter = () => {
-          const messages = isViewingArchive ? loadArchived() : (loadMessages() || []);
-          const senders = [...new Set(messages.map(msg => msg.sender))];
-          const filterSender = document.getElementById('filterSender');
-          filterSender.innerHTML = '<option value="all">All</option>';
-          senders.forEach(sender => {
-            const option = document.createElement('option');
-            option.value = sender;
-            option.textContent = sender;
-            filterSender.appendChild(option);
-          });
-        };
-
-        const showReplyModal = (sender, subject) => {
-          document.getElementById('replySubject').value = `Re: ${subject}`;
-          document.getElementById('replyModal').style.display = 'block';
-        };
-
-        const hideReplyModal = () => {
-          document.getElementById('replyModal').style.display = 'none';
-        };
-
-        msgList.addEventListener('click', event => {
-          const target = event.target;
-          const item = target.closest('.message-item');
-          if (!item) return;
-
-          if (target.classList.contains('toggle-status')) {
-            if (item.classList.contains('unread')) {
-              item.classList.remove('unread');
-              item.classList.add('read');
-            } else {
-              item.classList.remove('read');
-              item.classList.add('unread');
-            }
-            saveMessages();
-          }
-
-          if (target.classList.contains('archive-item')) {
-            const message = {
-              sender: item.querySelector('.sender').textContent,
-              date: item.querySelector('.date').textContent,
-              subject: item.querySelector('h3').textContent,
-              body: item.querySelector('p').textContent,
-              status: item.classList.contains('unread') ? 'unread' : 'read'
-            };
-            archiveMessage(message);
-            item.remove();
-            saveMessages();
-          }
-
-          if (target.classList.contains('delete-item')) {
-            item.remove();
-            saveMessages();
-          }
-        });
-
-        document.getElementById('btnNewMessage').addEventListener('click', addNewMessage);
-        document.getElementById('btnMarkRead').addEventListener('click', setAllRead);
-        document.getElementById('btnDeleteRead').addEventListener('click', deleteRead);
-        document.getElementById('btnDeleteAll').addEventListener('click', deleteAll);
-        document.getElementById('btnViewArchive').addEventListener('click', viewArchive);
-        document.getElementById('filterStatus').addEventListener('change', filterMessages);
-        document.getElementById('filterSender').addEventListener('change', filterMessages);
-        document.getElementById('searchInput').addEventListener('input', filterMessages);
-
-        document.querySelector('.close').addEventListener('click', hideReplyModal);
-        window.addEventListener('click', event => {
-          if (event.target === document.getElementById('replyModal')) {
-            hideReplyModal();
-          }
-        });
-
-        document.getElementById('replyForm').addEventListener('submit', event => {
-          event.preventDefault();
-          // Simulate sending reply
-          alert('Reply sent!');
-          hideReplyModal();
-        });
-
-        const storedMessages = loadMessages();
-        if (storedMessages && storedMessages.length > 0) {
-          renderMessages(storedMessages);
-        } else {
-          seedFromExistingDOM();
-          const loadedAgain = loadMessages();
-          if (loadedAgain) renderMessages(loadedAgain);
+        if (target.classList.contains('delete-item')) {
+          item.remove();
+          saveMessages();
         }
       });
-    </script>
+
+      document.getElementById('btnNewMessage').addEventListener('click', addNewMessage);
+      document.getElementById('btnMarkRead').addEventListener('click', setAllRead);
+      document.getElementById('btnDeleteRead').addEventListener('click', deleteRead);
+      document.getElementById('btnDeleteAll').addEventListener('click', deleteAll);
+      document.getElementById('btnViewArchive').addEventListener('click', viewArchive);
+      document.getElementById('filterStatus').addEventListener('change', filterMessages);
+      document.getElementById('filterSender').addEventListener('change', filterMessages);
+      document.getElementById('searchInput').addEventListener('input', filterMessages);
+
+      document.querySelector('.close').addEventListener('click', hideReplyModal);
+      window.addEventListener('click', event => {
+        if (event.target === document.getElementById('replyModal')) {
+          hideReplyModal();
+        }
+      });
+
+      document.getElementById('replyForm').addEventListener('submit', event => {
+        event.preventDefault();
+        // Simulate sending reply
+        alert('Reply sent!');
+        hideReplyModal();
+      });
+
+      const storedMessages = loadMessages();
+      if (storedMessages && storedMessages.length > 0) {
+        renderMessages(storedMessages);
+      } else {
+        seedFromExistingDOM();
+        const loadedAgain = loadMessages();
+        if (loadedAgain) renderMessages(loadedAgain);
+      }
+    });
+  </script>
 </body>
+
 </html>
