@@ -1,4 +1,25 @@
-/* Consistency with doctor_dashboard.css */
+:root {
+    /* Color Palette - Refined HSL for Premium Feel */
+    --primary: hsl(164, 20%, 51%);
+    --primary-dark: hsl(164, 20%, 42%);
+    --secondary: hsl(210, 20%, 25%);
+    --accent: hsl(180, 50%, 45%);
+    --bg-main: hsl(210, 20%, 98%);
+    --bg-card: hsl(0, 0%, 100%);
+    --text-main: hsl(210, 20%, 20%);
+    --text-muted: hsl(210, 10%, 45%);
+    --border: hsl(210, 15%, 90%);
+    --white: #ffffff;
+
+    /* Variables */
+    --sidebar-width: 260px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --radius-lg: 16px;
+    --radius-md: 10px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,9 +27,17 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Outfit', sans-serif;
+    color: var(--secondary);
 }
 
 .dashboard-container {
@@ -16,104 +45,116 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar Styles */
+/* Sidebar Styles - Modern Glassmorphism influence */
 .sidebar {
-    width: 180px;
-    background: linear-gradient(180deg, #6b9b8e 0%, #5a8a7d 100%);
-    color: white;
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    padding: 0 15px;
-    margin-bottom: 30px;
+    padding: 0 25px;
+    margin-bottom: 40px;
 }
 
 .logo-icon {
-    width: 30px;
-    height: 30px;
-    background: white;
-    border-radius: 50%;
-    margin-right: 10px;
+    width: 32px;
+    height: 32px;
+    background: var(--white);
+    border-radius: 8px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.logo-icon::after {
+    content: '+';
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .logo h2 {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.3;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.5px;
 }
 
 .nav-menu {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    padding: 0 15px;
+    gap: 8px;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
     padding: 12px 15px;
-    color: white;
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
-    font-size: 13px;
-    transition: background 0.3s;
-    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    gap: 12px;
 }
 
 .nav-item:hover {
     background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    transform: translateX(5px);
 }
 
 .nav-item.active {
-    background: rgba(255, 255, 255, 0.2);
-    border-left: 4px solid white;
-}
-
-.icon {
-    width: 24px;
-    height: 24px;
-    display: inline-block;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: var(--white);
+    color: var(--primary-dark);
+    box-shadow: var(--shadow-sm);
 }
 
 .icon-dashboard::before {
-    content: '🏠';
-}
-
-.icon-inbox::before {
-    content: '📥';
-}
-
-.icon-appointment::before {
-    content: '🗓️';
-}
-
-.icon-prescriptions::before {
-    content: '📋';
-}
-
-.icon-lab::before {
-    content: '🧪';
-}
-
-.icon-promotions::before {
-    content: '🎁';
+    content: '📊';
 }
 
 .icon-bookings::before {
     content: '📅';
 }
 
+.icon-appointment::before {
+    content: '🗓️';
+}
+
+.icon-inbox::before {
+    content: '📥';
+}
+
+.icon-reviews::before {
+    content: '⭐';
+}
+
 .icon-feedback::before {
     content: '💬';
+}
+
+.icon-prescriptions::before {
+    content: '📋';
+}
+
+.icon-promotions::before {
+    content: '🎁';
 }
 
 .icon-settings::before {
@@ -124,75 +165,100 @@ body {
     content: '🚪';
 }
 
-.icon-reviews::before {
-    content: '⭐';
+.icon {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
 }
 
 .sidebar-footer {
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px 15px 0;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Main Content Styles */
 .main-content {
     flex: 1;
-    padding: 40px;
-    overflow-y: auto;
-    background-color: #f8f9fa;
-}
-
-.page-header {
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.page-header h1 {
-    font-size: 28px;
-    color: #2c3e50;
-    font-weight: 600;
-}
-
-.booking-form-container {
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    max-width: 1000px;
+    padding: 40px 60px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.form-section {
+.page-header {
     margin-bottom: 40px;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.page-header::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 2px;
+    margin-top: 10px;
+}
+
+.booking-form-container {
+    background: var(--bg-card);
+    padding: 50px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.form-section {
+    margin-bottom: 50px;
 }
 
 .section-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    color: #34495e;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+    color: var(--secondary);
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--bg-main);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--primary);
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 25px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .form-group label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #7f8c8d;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 input[type="text"],
@@ -201,88 +267,170 @@ input[type="tel"],
 input[type="date"],
 select,
 textarea {
-    padding: 12px 16px;
-    border: 1px solid #dfe6e9;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: all 0.3s;
-    background-color: #fafbfc;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text-main);
+    transition: var(--transition);
+    background-color: var(--white);
 }
 
 input:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: #6b9b8e;
-    background-color: white;
-    box-shadow: 0 0 0 3px rgba(107, 155, 142, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px hsla(164, 20%, 51%, 0.15);
 }
 
 textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 120px;
 }
 
 .full-width {
     grid-column: span 2;
 }
 
-/* Radio and Checkbox Styling */
+/* Custom Radio and Checkbox Styling */
 .radio-group,
-.checkbox-group {
+.payment-options {
     display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 10px 0;
 }
 
 .radio-item,
 .checkbox-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     cursor: pointer;
-    font-size: 14px;
-    color: #2c3e50;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.radio-item:hover,
+.checkbox-item:hover {
+    color: var(--primary);
 }
 
 input[type="radio"],
 input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #6b9b8e;
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary);
     cursor: pointer;
 }
 
 /* Specific Section Styles */
 .medical-history-section textarea {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .payment-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 50px;
 }
 
-.payment-options {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.submit-btn-container {
+    text-align: right;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    padding: 16px 40px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(107, 155, 142, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 155, 142, 0.4);
+    filter: brightness(1.1);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
-    .grid-container {
-        grid-template-columns: 1fr;
-    }
-
-    .full-width {
-        grid-column: span 1;
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 40px;
     }
 
     .payment-section {
         grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        position: relative;
+    }
+
+    .logo {
+        margin-bottom: 20px;
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .nav-item span:not(.icon) {
+        display: none;
     }
 
     .main-content {
@@ -290,15 +438,14 @@ input[type="checkbox"] {
     }
 
     .booking-form-container {
-        padding: 20px;
+        padding: 25px;
     }
 
-    .sidebar {
-        width: 70px;
+    .grid-container {
+        grid-template-columns: 1fr;
     }
 
-    .logo h2,
-    .nav-item span:not(.icon) {
-        display: none;
+    .full-width {
+        grid-column: span 1;
     }
 }
