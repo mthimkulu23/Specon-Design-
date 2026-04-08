@@ -78,13 +78,6 @@ h3 {
     position: relative;
 }
 
-.logo-icon::after {
-    content: '+';
-    color: var(--primary);
-    font-weight: bold;
-    font-size: 20px;
-}
-
 .logo h2 {
     font-size: 18px;
     font-weight: 700;
