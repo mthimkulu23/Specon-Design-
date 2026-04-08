@@ -1,9 +1,9 @@
-document_id: reviews_logic
-document_content:
 document.addEventListener('DOMContentLoaded', () => {
     const stars = document.querySelectorAll('.stars-input .star');
     const submitBtn = document.querySelector('.submit-btn');
-    const nameInput = document.querySelector('.review-form input[type="text"]');
+    const nameInput = document.querySelector('#review-name');
+    const commentInput = document.querySelector('#review-comment');
+    const reviewForm = document.querySelector('.review-form');
     let currentRating = 0;
 
     // Star interactivity
@@ -39,12 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Form validation
     nameInput.addEventListener('input', validateForm);
+    commentInput.addEventListener('input', validateForm);
 
     function validateForm() {
         const isNameValid = nameInput.value.trim().length > 0;
+        const isCommentValid = commentInput.value.trim().length > 0;
         const isRatingValid = currentRating > 0;
 
-        if (isNameValid && isRatingValid) {
+        if (isNameValid && isCommentValid && isRatingValid) {
             submitBtn.disabled = false;
             submitBtn.style.background = '#000';
             submitBtn.style.color = '#fff';
@@ -58,15 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Form submission
-    document.querySelector('.review-form').addEventListener('submit', (e) => {
+    reviewForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const name = nameInput.value.trim();
-        const reviewText = document.querySelector('.review-form input[type="text"]').value; // Or maybe I should add a textarea? Reference doesn't show one but it's good for UX. The reference image DOES show a comment area in Feedback but only a name input in Reviews? Wait, let me check.
-        // Actually the Reviews image shows "Excellent service..." etc. in the reviews list, but the submission form only shows "Your Name" and "Rate the Hospital". 
-        // I'll add a simple text input for the review text if it's missing, OR just use the name as a placeholder for the demo.
-        // Looking at the Reviews image again, it's just "Your Name". 
-        // Wait, I'll update the HTML to include a comment field in the Reviews form too, it makes more sense.
+        const comment = commentInput.value.trim();
 
         // Dynamic Review Addition
         const reviewsList = document.querySelector('.reviews-list');
@@ -79,10 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         newReview.innerHTML = `
-            <div class="review-name">${name}
-                <div class="stars small">${starsHtml}</div>
+            <div class="review-top">
+                <div class="review-name">${name}
+                    <div class="stars small">${starsHtml}</div>
+                </div>
+                <button class="reply-btn">Reply</button>
             </div>
-            <p class="review-text">New review submitted on ${new_Date().toLocaleDateString()}. Thank you for your feedback!</p>
+            <p class="review-text">${comment}</p>
         `;
 
         reviewsList.prepend(newReview);
@@ -90,9 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Thank you for your review!');
 
         // Reset form
-        nameInput.value = '';
+        reviewForm.reset();
         currentRating = 0;
-        highlightStars(4.5); // Reset to base state or 0
+        highlightStars(0);
         validateForm();
     });
 });
