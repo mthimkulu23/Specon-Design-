@@ -32,34 +32,148 @@
         </aside>
 
         <main class="main-content">
-            <header class="page-header">
-                <h1>Settings</h1>
-            </header>
+            <div id="settingsMain">
+                <header class="page-header">
+                    <h1>Settings</h1>
+                </header>
 
-            <section class="settings-list">
-                <a href="#" class="settings-card">
-                    <div class="card-icon profile-icon">👤</div>
-                    <span class="card-label">Profile</span>
-                    <span class="chevron">›</span>
-                </a>
-                <a href="#" class="settings-card">
-                    <div class="card-icon notifications-icon">🔔</div>
-                    <span class="card-label">Notifications</span>
-                    <span class="chevron">›</span>
-                </a>
-                <a href="#" class="settings-card">
-                    <div class="card-icon privacy-icon">🛡️</div>
-                    <span class="card-label">Privacy</span>
-                    <span class="chevron">›</span>
-                </a>
-                <a href="#" class="settings-card">
-                    <div class="card-icon help-icon">❓</div>
-                    <span class="card-label">Help</span>
-                    <span class="chevron">›</span>
-                </a>
-            </section>
+                <section class="settings-list">
+                    <div class="settings-card" onclick="showSection('profileSection')">
+                        <div class="card-icon profile-icon">👤</div>
+                        <span class="card-label">Profile</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="settings-card" onclick="showSection('notificationsSection')">
+                        <div class="card-icon notifications-icon">🔔</div>
+                        <span class="card-label">Notifications</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="settings-card" onclick="showSection('privacySection')">
+                        <div class="card-icon privacy-icon">🛡️</div>
+                        <span class="card-label">Privacy</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="settings-card" onclick="showSection('helpSection')">
+                        <div class="card-icon help-icon">❓</div>
+                        <span class="card-label">Help</span>
+                        <span class="chevron">›</span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profileSection" class="settings-detail" style="display: none;">
+                <button class="back-btn" onclick="showSection('settingsMain')">← Back to Settings</button>
+                <header class="detail-header">
+                    <h2>Edit Profile</h2>
+                </header>
+                <form id="profileForm" class="settings-form">
+                    <div class="form-group">
+                        <label>Full Name(s)</label>
+                        <input type="text" value="Dr. Sarah Johnson">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" value="sarah.j@purehealth.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="tel" value="+27 82 123 4567">
+                    </div>
+                    <div class="form-group">
+                        <label>Clinic Location</label>
+                        <input type="text" value="Sandton Medical Center, Suite 402">
+                    </div>
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Notifications Section -->
+            <div id="notificationsSection" class="settings-detail" style="display: none;">
+                <button class="back-btn" onclick="showSection('settingsMain')">← Back to Settings</button>
+                <header class="detail-header">
+                    <h2>Notifications</h2>
+                </header>
+                <div class="settings-options">
+                    <div class="option-item">
+                        <span>Email Notifications</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <span>SMS Reminders</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <span>New Appointment Alerts</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Section -->
+            <div id="privacySection" class="settings-detail" style="display: none;">
+                <button class="back-btn" onclick="showSection('settingsMain')">← Back to Settings</button>
+                <header class="detail-header">
+                    <h2>Privacy & Security</h2>
+                </header>
+                <div class="settings-options">
+                    <div class="option-item">
+                        <span>Public Profile Visibility</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <span>Share Data with Partners</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <span>Require 2FA for Login</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div id="helpSection" class="settings-detail" style="display: none;">
+                <button class="back-btn" onclick="showSection('settingsMain')">← Back to Settings</button>
+                <header class="detail-header">
+                    <h2>Help & Support</h2>
+                </header>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3>How do I change my clinic hours?</h3>
+                        <p>Go to the Dashboard and select "Schedule Management" to update your active hours.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Where can I view my patient billing?</h3>
+                        <p>Billing information is available under the "Accounts" tab in the main sidebar.</p>
+                    </div>
+                </div>
+                <div class="support-contact">
+                    <button class="support-btn">Contact Support</button>
+                </div>
+            </div>
         </main>
     </div>
+
+    <script src="settings.js"></script>
 </body>
 
 </html>
