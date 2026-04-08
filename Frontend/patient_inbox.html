@@ -191,10 +191,21 @@
         allMessages = stored ? JSON.parse(stored) : [];
         archivedMessages = archived ? JSON.parse(archived) : [];
 
+        let needsSave = false;
+        const ensureIds = (list) => {
+          list.forEach((msg) => {
+            if (!msg.id) {
+              msg.id = Date.now() + Math.floor(Math.random() * 1000000);
+              needsSave = true;
+            }
+          });
+        };
+        ensureIds(allMessages);
+        ensureIds(archivedMessages);
+
         if (allMessages.length === 0 && !localStorage.getItem('initialSeedDone')) {
-          // Seed from DOM if storage is empty for the first time
-          allMessages = Array.from(msgList.querySelectorAll('.message-item')).map((item, idx) => ({
-            id: Date.now() + idx,
+          allMessages = Array.from(msgList.querySelectorAll('.message-item')).map((item) => ({
+            id: Date.now() + Math.floor(Math.random() * 1000000),
             sender: item.querySelector('.sender').textContent,
             date: item.querySelector('.date').textContent,
             subject: item.querySelector('h3').textContent,
@@ -202,6 +213,10 @@
             status: item.classList.contains('unread') ? 'unread' : 'read'
           }));
           localStorage.setItem('initialSeedDone', 'true');
+          needsSave = true;
+        }
+
+        if (needsSave) {
           saveToStorage();
         }
         renderMessages(allMessages);
@@ -293,10 +308,15 @@
         const item = target.closest('.message-item');
         if (!item) return;
 
-        const msgId = parseInt(item.dataset.id);
+        const msgId = Number(item.dataset.id);
         let source = isViewingArchive ? archivedMessages : allMessages;
         const msgIndex = source.findIndex(m => m.id === msgId);
-        if (msgIndex === -1) return;
+
+        if (msgIndex === -1) {
+          // Fallback: If ID matching fails, reload storage to ensure consistency
+          loadFromStorage();
+          return;
+        }
         const msg = source[msgIndex];
 
         if (target.classList.contains('toggle-status')) {
