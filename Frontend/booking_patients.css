@@ -285,6 +285,11 @@ textarea:focus {
     box-shadow: 0 0 0 4px hsla(164, 20%, 51%, 0.15);
 }
 
+select,
+option {
+    font-weight: 400;
+}
+
 textarea {
     resize: vertical;
     min-height: 120px;
