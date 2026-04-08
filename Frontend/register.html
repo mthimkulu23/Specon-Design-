@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <title>Register</title>
-   
+
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -29,7 +31,7 @@
                     <div class="form-group">
                         <label for="userType">Doctor / Patient</label>
                         <select id="userType" name="userType" required>
-                            <option value="">Select...</option>
+                            <option value="" disabled selected hidden>Select...</option>
                             <option value="doctor">Doctor</option>
                             <option value="patient">Patient</option>
                         </select>
@@ -55,26 +57,28 @@
             </div>
 
             <div class="image-section">
-                <img src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=500&h=600&fit=crop" alt="Medical stethoscope and clipboard">
+                <img src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=500&h=600&fit=crop"
+                    alt="Medical stethoscope and clipboard">
             </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            
+
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');
                 return;
             }
-            
+
             alert('Registration successful!');
             // Add your form submission logic here
         });
     </script>
 </body>
+
 </html>
