@@ -70,7 +70,7 @@ h3 {
     width: 32px;
     height: 32px;
     background: var(--white);
-    border-radius: 8px;
+    border-radius: 50%;
     margin-right: 12px;
     display: flex;
     align-items: center;
