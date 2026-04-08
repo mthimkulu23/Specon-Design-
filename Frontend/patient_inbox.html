@@ -150,7 +150,7 @@
       let archivedMessages = [];
       let isViewingArchive = false;
 
-      const buildMessageElement = ({ id, sender, date, subject, body, status }) => {
+      const buildMessageElement = ({ id, sender, date, subject, body, status }, isArchived) => {
         const article = document.createElement('article');
         article.className = `message-item ${status === 'unread' ? 'unread' : 'read'}`;
         article.dataset.id = id;
@@ -163,8 +163,8 @@
             <p>${body}</p>
             <div class="message-actions">
               <button class="message-action-btn toggle-status">${status === 'unread' ? 'Mark read' : 'Mark unread'}</button>
-              <button class="message-action-btn reply-item">Reply</button>
-              <button class="message-action-btn archive-item">Archive</button>
+              ${isArchived ? '' : '<button class="message-action-btn reply-item">Reply</button>'}
+              <button class="message-action-btn archive-item">${isArchived ? 'Unarchive' : 'Archive'}</button>
               <button class="message-action-btn delete-item">Delete</button>
             </div>
           `;
@@ -173,7 +173,7 @@
 
       const renderMessages = (messages, isApplyingFilter = false) => {
         msgList.innerHTML = '';
-        messages.forEach(message => msgList.appendChild(buildMessageElement(message)));
+        messages.forEach(message => msgList.appendChild(buildMessageElement(message, isViewingArchive)));
         if (!isViewingArchive && !isApplyingFilter) {
           saveToStorage();
         }
@@ -209,12 +209,14 @@
 
       const setAllRead = () => {
         allMessages.forEach(msg => msg.status = 'read');
-        renderMessages(allMessages);
+        saveToStorage();
+        filterMessages();
       };
 
       const deleteRead = () => {
         allMessages = allMessages.filter(msg => msg.status === 'unread');
-        renderMessages(allMessages);
+        saveToStorage();
+        filterMessages();
       };
 
       const addNewMessage = () => {
@@ -228,13 +230,15 @@
           status: 'unread'
         };
         allMessages.unshift(newMessage);
-        renderMessages(allMessages);
+        saveToStorage();
+        filterMessages();
       };
 
       const deleteAll = () => {
         if (isViewingArchive) archivedMessages = [];
         else allMessages = [];
-        renderMessages(isViewingArchive ? archivedMessages : allMessages);
+        saveToStorage();
+        filterMessages();
       };
 
       const viewArchive = () => {
@@ -297,20 +301,26 @@
 
         if (target.classList.contains('toggle-status')) {
           msg.status = msg.status === 'unread' ? 'read' : 'unread';
-          renderMessages(isViewingArchive ? archivedMessages : allMessages, true);
+          saveToStorage();
+          filterMessages(); // Re-apply current filters to update view
         }
 
         if (target.classList.contains('archive-item')) {
           if (!isViewingArchive) {
             allMessages.splice(msgIndex, 1);
             archivedMessages.push(msg);
-            renderMessages(allMessages);
+          } else {
+            archivedMessages.splice(msgIndex, 1);
+            allMessages.push(msg);
           }
+          saveToStorage();
+          filterMessages();
         }
 
         if (target.classList.contains('delete-item')) {
           source.splice(msgIndex, 1);
-          renderMessages(isViewingArchive ? archivedMessages : allMessages);
+          saveToStorage();
+          filterMessages();
         }
 
         if (target.classList.contains('reply-item')) {
