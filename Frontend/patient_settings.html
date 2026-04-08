@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="patient_settings.css">
     <title>Settings - PureHealth Centre</title>
 </head>
 
@@ -22,9 +22,12 @@
                 <a href="#" class="nav-item"><span class="nav-icon">🎁</span><span>Promotions</span></a>
                 <a href="booking_patients.html" class="nav-item"><span
                         class="nav-icon">📖</span><span>Bookings</span></a>
-                <a href="#" class="nav-item active"><span class="nav-icon">⚙️</span><span>Clinic Settings</span></a>
+                <a href="patient_settings.html" class="nav-item active"><span class="nav-icon">⚙️</span><span>Clinic
+                        Settings</span></a>
                 <a href="#" class="nav-item"><span class="nav-icon">⭐</span><span>Reviews</span></a>
                 <a href="#" class="nav-item"><span class="nav-icon">💬</span><span>Feedback</span></a>
+                <a href="prescriptions.html" class="nav-item"><span
+                        class="nav-icon">📋</span><span>Prescriptions</span></a>
             </nav>
             <div class="sidebar-footer">
                 <a href="#" class="nav-item"><span class="nav-icon">🚪</span><span>Logout</span></a>
@@ -174,10 +177,38 @@
                     <button class="support-btn">Contact Support</button>
                 </div>
             </div>
+
+            <div id="patientPrescriptionsSection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
+                </div>
+                <header class="detail-header">
+                    <h2>My Prescriptions</h2>
+                </header>
+                <div class="settings-options">
+                    <div class="option-item">
+                        <div class="prescription-info">
+                            <span class="presc-title">Amoxicillin - 500mg</span>
+                            <span class="presc-date">Issued: Oct 24, 2023</span>
+                        </div>
+                        <span class="status-tag">Active</span>
+                    </div>
+                    <div class="option-item">
+                        <div class="prescription-info">
+                            <span class="presc-title">Lisinopril - 10mg</span>
+                            <span class="presc-date">Issued: Sept 12, 2023</span>
+                        </div>
+                        <span class="status-tag">Completed</span>
+                    </div>
+                </div>
+                <div class="support-contact">
+                    <button class="support-btn">Request Renewal</button>
+                </div>
+            </div>
         </main>
     </div>
 
-    <script src="settings.js"></script>
+    <script src="patient_settings.js"></script>
 </body>
 
 </html>
