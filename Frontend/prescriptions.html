@@ -39,30 +39,131 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <header class="page-header">
-                <h1>Prescriptions</h1>
-                <p>Manage and track patient prescriptions here.</p>
-            </header>
+            <div id="settingsMain">
+                <header class="page-header">
+                    <h1>Prescriptions</h1>
+                    <p>Manage and track patient prescriptions here.</p>
+                </header>
 
-            <div class="settings-list">
-                <div class="settings-card">
-                    <div class="card-icon">📄</div>
-                    <span class="card-label">Active Prescriptions</span>
-                    <span class="chevron">›</span>
+                <div class="settings-list">
+                    <div class="settings-card" onclick="showSection('activeSection')">
+                        <div class="card-icon">📄</div>
+                        <span class="card-label">Active Prescriptions</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="settings-card" onclick="showSection('historySection')">
+                        <div class="card-icon">🕒</div>
+                        <span class="card-label">Prescription History</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="settings-card" onclick="showSection('renewalsSection')">
+                        <div class="card-icon">✅</div>
+                        <span class="card-label">Renewal Requests</span>
+                        <span class="chevron">›</span>
+                    </div>
                 </div>
-                <div class="settings-card">
-                    <div class="card-icon">🕒</div>
-                    <span class="card-label">Prescription History</span>
-                    <span class="chevron">›</span>
+            </div>
+
+            <!-- Prescription Pad Section (Active) -->
+            <div id="activeSection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
                 </div>
-                <div class="settings-card">
-                    <div class="card-icon">✅</div>
-                    <span class="card-label">Renewal Requests</span>
-                    <span class="chevron">›</span>
+
+                <div class="prescription-pad">
+                    <div class="pad-header">
+                        <div class="pad-logo">
+                            <svg viewBox="0 0 100 100">
+                                <rect x="30" y="30" width="40" height="40" rx="10" fill="#2c5f5d" />
+                                <path d="M50 40v20M40 50h20" stroke="white" stroke-width="8" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="clinic-info">
+                            <h2>PureHealth Centre</h2>
+                            <p>1234 Health</p>
+                            <p>City State 34567</p>
+                            <p>Phone 012 456 2345</p>
+                        </div>
+                    </div>
+
+                    <div class="pad-body">
+                        <div class="pad-field">
+                            <label>Patients Name</label>
+                            <input type="text" class="line-input">
+                        </div>
+                        <div class="pad-field">
+                            <label>Date</label>
+                            <input type="text" class="line-input">
+                        </div>
+
+                        <div class="pad-content">
+                            <h3>Prescription</h3>
+                            <textarea placeholder="Rx details..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="pad-footer">
+                        <div class="footer-divider"></div>
+                        <div class="signature-row">
+                            <div class="pad-field">
+                                <label>Signature</label>
+                                <input type="text" class="line-input">
+                            </div>
+                        </div>
+                        <div class="dispense-option">
+                            <label class="checkbox-container">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                Dispense as Written
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="pad-actions">
+                    <button class="print-btn">Print Prescription</button>
+                    <button class="save-btn">Save to Record</button>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div id="historySection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
+                </div>
+                <header class="detail-header">
+                    <h2>Prescription History</h2>
+                </header>
+                <div class="settings-options">
+                    <div class="option-item">
+                        <span>Amoxicillin - 500mg</span>
+                        <span class="status-tag">Completed</span>
+                    </div>
+                    <div class="option-item">
+                        <span>Lisinopril - 10mg</span>
+                        <span class="status-tag">Completed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Renewals Section -->
+            <div id="renewalsSection" class="settings-detail" style="display: none;">
+                <div class="header">
+                    <button class="back-button" onclick="showSection('settingsMain')"></button>
+                </div>
+                <header class="detail-header">
+                    <h2>Renewal Requests</h2>
+                </header>
+                <div class="settings-options">
+                    <div class="option-item">
+                        <span>Atorvastatin - Renewal</span>
+                        <button class="status-tag update-btn">Approve</button>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
+
+    <script src="prescriptions.js"></script>
 </body>
 
 </html>
