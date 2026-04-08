@@ -6,10 +6,24 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* Color Palette - Synchronized with patient_inbox */
+    --primary: hsl(164, 20%, 51%);
+    --primary-dark: hsl(164, 20%, 42%);
+    --secondary: hsl(210, 20%, 25%);
+    --accent: hsl(180, 50%, 45%);
+    --bg-main: hsl(210, 20%, 98%);
+    --bg-card: hsl(0, 0%, 100%);
+    --text-main: hsl(210, 20%, 20%);
+    --text-muted: hsl(210, 10%, 45%);
+    --border: hsl(210, 15%, 90%);
+    --white: #ffffff;
+}
+
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: hsl(210, 20%, 98%);
-    color: hsl(210, 20%, 20%);
+    background-color: var(--bg-main);
+    color: var(--text-main);
 }
 
 .dashboard-container {
@@ -20,7 +34,7 @@ body {
 /* Sidebar Styling */
 .sidebar {
     width: 260px;
-    background-color: #7a9b9a;
+    background-color: var(--primary);
     color: #fff;
     padding: 30px 15px;
     display: flex;
@@ -71,12 +85,13 @@ body {
 
 .nav-item:hover {
     background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
 }
 
 .nav-item.active {
-    background-color: #fff;
-    color: #000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: var(--white);
+    color: var(--primary-dark);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .nav-icon {
@@ -137,7 +152,7 @@ body {
 
 .card-icon {
     font-size: 38px;
-    color: #2c5f5d;
+    color: var(--secondary);
     margin-right: 35px;
     display: flex;
     align-items: center;
@@ -152,7 +167,7 @@ body {
 
 .chevron {
     font-size: 32px;
-    color: #2c5f5d;
+    color: var(--secondary);
     font-weight: 900;
     margin-left: 20px;
 }
