@@ -56,8 +56,8 @@ body {
 .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background-color: #fff;
-    /* Base for the image side */
+    gap: 0;
+    background-color: #7a9b9a;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
