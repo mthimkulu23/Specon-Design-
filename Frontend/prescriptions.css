@@ -111,7 +111,6 @@ body {
 /* Main Content Styling */
 .main-content {
     flex: 1;
-    margin-left: 260px;
     padding: 80px 40px;
     display: flex;
     flex-direction: column;
@@ -123,7 +122,8 @@ body {
 
 #settingsMain {
     width: 100%;
-    max-width: 800px;
+    max-width: 550px;
+    /* Reduced width for more compact look */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -144,6 +144,7 @@ body {
 /* Settings List */
 .settings-list {
     width: 100%;
+    max-width: 550px;
     display: flex;
     flex-direction: column;
     gap: 20px;

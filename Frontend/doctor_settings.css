@@ -111,7 +111,6 @@ body {
 /* Main Content Styling */
 .main-content {
     flex: 1;
-    margin-left: 260px;
     padding: 80px 40px;
     display: flex;
     flex-direction: column;
@@ -123,7 +122,8 @@ body {
 
 #settingsMain {
     width: 100%;
-    max-width: 800px;
+    max-width: 550px;
+    /* Reduced width for more compact look */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -144,6 +144,7 @@ body {
 /* Settings List */
 .settings-list {
     width: 100%;
+    max-width: 550px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -190,10 +191,15 @@ body {
 /* Detail View Styles */
 .settings-detail {
     width: 100%;
-    max-width: 850px;
+    max-width: 550px;
+    /* Matching the main list width for consistency */
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center everything in detail view */
 }
 
 .settings-detail.active {
@@ -203,7 +209,11 @@ body {
 
 /* Header & Back Button Styling */
 .header {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* Center the back button area */
 }
 
 .back-button {
@@ -233,6 +243,7 @@ body {
 
 .detail-header {
     margin-bottom: 40px;
+    text-align: center;
 }
 
 .detail-header h2 {

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Results - PureHealth Centre</title>
+    <link rel="stylesheet" href="lab_results.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Unified -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h2>PureHealth Centre</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="lab_results.html" class="nav-item active">
+                    <span class="nav-icon">🧪</span>
+                    <span>Lab Results</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Appointment</span>
+                </a>
+                <a href="prescriptions.html" class="nav-item">
+                    <span class="nav-icon">🗒️</span>
+                    <span>Prescriptions</span>
+                </a>
+                <a href="patient_inbox.html" class="nav-item">
+                    <span class="nav-icon">📥</span>
+                    <span>Inbox</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    <span>Feedback</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🎁</span>
+                    <span>Promotions</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="booking_patients.html" class="nav-item">
+                    <span class="nav-icon">💬</span>
+                    <span>Bookings</span>
+                </a>
+                <a href="patient_settings.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item logout">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="report-container">
+                <div class="report-card">
+                    <!-- Report Header -->
+                    <div class="report-header">
+                        <div class="medical-cross">
+                            <div class="cross-plus">+</div>
+                        </div>
+                        <div class="header-divider"></div>
+                    </div>
+
+                    <!-- Patient Info Section -->
+                    <div class="patient-info-grid">
+                        <div class="info-column">
+                            <h1 class="patient-name">Jane Doe</h1>
+                            <p class="patient-meta">Age: 21 Years</p>
+                            <p class="patient-meta">Sex: Female</p>
+                            <p class="patient-meta">UHID: 556</p>
+                        </div>
+                        <div class="qr-section">
+                            <div class="qr-code">
+                                <div class="qr-inner"></div>
+                            </div>
+                        </div>
+                        <div class="collection-details">
+                            <p><strong>Sample Collected at:</strong></p>
+                            <p>125 , Shiv complex S G Road Mumbai</p>
+                            <p><strong>Sample Collected By:</strong> Mr Smith</p>
+                            <p><strong>Ref. By</strong> Dr Hiren Shah</p>
+                        </div>
+                        <div class="report-timing">
+                            <div class="tiny-barcode">
+                                <span>||||||||||||||||</span>
+                            </div>
+                            <div class="timing-list">
+                                <p><strong>Registered on :</strong> 14:30 PM 02 Dec 2x</p>
+                                <p><strong>Collected on :</strong> 15:11 PM 02 Dec 2x</p>
+                                <p><strong>Reported on :</strong> 16:35 PM 02 Dec 2x</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test Title -->
+                    <div class="test-title-bar">
+                        <h2>Completed Blood Count (CBC)</h2>
+                    </div>
+
+                    <!-- Results Table -->
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>INVESTIGATION</th>
+                                <th>RESULTS</th>
+                                <th>REFERENCE VALUE</th>
+                                <th>UNIT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="sample-type-row">
+                                <td colspan="4">Primary Sample Type: <span>Blood</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>HEMOGLOBIN</strong><br>
+                                    <small>Hemoglobin (Hb)</small>
+                                </td>
+                                <td class="result-value high">12.5</td>
+                                <td><span class="flag low">LOW</span> 13.0 - 17.0</td>
+                                <td>G/dL</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>RBC COUNT</strong><br>
+                                    <small>Total RBC Count</small>
+                                </td>
+                                <td class="result-value">57.5</td>
+                                <td><span class="flag high">HIGH</span> 40 - 50</td>
+                                <td>%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
