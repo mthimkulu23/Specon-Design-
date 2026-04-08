@@ -113,7 +113,7 @@ body {
 /* Settings List */
 .settings-list {
     width: 100%;
-    max-width: 650px;
+    max-width: 850px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -122,7 +122,7 @@ body {
 .settings-card {
     display: flex;
     align-items: center;
-    padding: 24px 30px;
+    padding: 35px 45px;
     background-color: #d9d9d9;
     border-radius: 18px;
     text-decoration: none;
@@ -159,7 +159,7 @@ body {
 /* Detail View Styles */
 .settings-detail {
     width: 100%;
-    max-width: 650px;
+    max-width: 850px;
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
